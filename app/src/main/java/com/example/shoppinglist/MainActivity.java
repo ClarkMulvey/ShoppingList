@@ -16,4 +16,5 @@ public class MainActivity extends AppCompatActivity {
         // Comment from Clark
         // Comment from Flavio
     }
+    // This is the merge conflict comment
 }
