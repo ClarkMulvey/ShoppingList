@@ -16,4 +16,5 @@ public class MainActivity extends AppCompatActivity {
         // Comment from Clark
         // Comment from Flavio
     }
+    // Comment here from Clark (Merge Test)
 }
