@@ -21,4 +21,5 @@ public class MainActivity extends AppCompatActivity {
     // This is the merge conflict comment
     // this is paul's comment for merge conflict
     // What's up
+    // This is my merge conflict
 }
