@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ShoppingList</string>
+    <string name="view_edit_default">View/Edit Default List</string>
+    <string name="create_new_upcoming_list">Create Shopping List for an Upcoming Trip</string>
+    <string name="view_edit_upcoming_list">View/Edit Shopping List for an Upcoming Trip</string>
+    <string name="start_shopping">Start Shopping</string>
+    <string name="add_item_to_list">Item Name</string>
+    <string name="specify_item_quantity">Quantity</string>
+    <string name="btn_add_item_to_list">Add Item to Default List</string>
 </resources>
