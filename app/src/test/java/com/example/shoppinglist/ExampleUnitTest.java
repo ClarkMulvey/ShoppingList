@@ -16,29 +16,35 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testTwo() {
-        assertEquals(3, 1 + 2);
-    }
-
-    @Test
-    public void testThree() {
-
-        String word = "Dad";
-        assertEquals("Dad", word);
-    }
-
-    /*
-    @Test
     public void testLocalStorage() {
-
+        // Create dataHandler object
         ShoppingListDefault list = new ShoppingListDefault("testDefault");
-        list.addItem(new ShoppingListItem("MtnDew", 10);
-        // Create data handlerobject
+        list.addItem(new ShoppingListItem("MtnDew", 10));
 
         //dataHandler.saveList(list);
 
-        //assertEquals(list, word);
-    };
-    */
+        //assertEquals(list, dataHandler.loadList(list));
+    }
+
+    @Test
+    public void testDefaultListAddedToUpcomingShoppingTripList() {
+        // create default list
+
+        // create upcoming shopping trip list
+
+        // compare upcoming to default to make sure they match
+    }
+
+    @Test
+    public void testDefaultListAddedToUpcomingShoppingTripListDoesntChangeDefaultList() {
+        // create default list
+
+        // create upcoming shopping trip list
+
+        // add something to upcoming shopping trip list
+
+        // compare upcoming to default to make sure they do not match
+    }
+
 
 }

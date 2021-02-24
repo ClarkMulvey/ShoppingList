@@ -20,18 +20,23 @@ public class EditDefaultListActivity extends AppCompatActivity {
     EditText itemName;
     EditText itemQuantity;
     ListView listView;
+    // data handler object
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_default_list);
 
+        // instantiate data handler object
+
         this.itemName = (EditText) findViewById(R.id.ItemName);
         this.itemQuantity = (EditText) findViewById(R.id.ItemQuantity);
         this.listView = (ListView) findViewById(R.id.listView);
 
-        this.defaultList = loadList("default");
+        this.defaultList = /*this.dataHandler.*/loadList("default");
         displayDefaultList();
+
+
     }
 
     public ShoppingListDefault loadList(String listName) {
@@ -70,8 +75,10 @@ public class EditDefaultListActivity extends AppCompatActivity {
         Toast.makeText(this, this.itemName.getText().toString() + " has been added to the list" , Toast.LENGTH_LONG).show();
         clearFields();
         displayDefaultList();
-        saveList();
+        /*this.dataHandler.setDefaultLists()*/
+        /*this.dataHandler.*/saveList();
     }
+
 
     public void saveList() {
 
