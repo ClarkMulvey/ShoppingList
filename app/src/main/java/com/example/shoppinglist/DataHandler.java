@@ -27,10 +27,19 @@ public class DataHandler {
     }
 
     public void readData(){
+        //TODO: Need to write this method to read from the local Disk
+
+        //TODO: Need to add to this method to also read from the cloud, although we need to determin
+        // when the right time is to read from the cloud.
 
     }
 
     public void writeData(){
+
+        //TODO: Need to write this method to write to the local Disk
+
+        //TODO: Need to add to this method to also write to the cloud, although we need to determine
+        // when the right time is to write to the cloud.
        /* Gson gson = new Gson();
 
         String listStorage = gson.toJson(this.defaultList);
