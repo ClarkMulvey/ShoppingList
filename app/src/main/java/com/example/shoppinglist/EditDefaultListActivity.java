@@ -89,7 +89,12 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
     // Really Not sure if we need this, will need to look at it after we refactor over to the DataHandler
     public void saveListActivity(View view) {
-        saveList();
+        try {
+            saveList();
+            Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
+        }
     }
 
 
