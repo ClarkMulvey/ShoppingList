@@ -14,4 +14,31 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void testTwo() {
+        assertEquals(3, 1 + 2);
+    }
+
+    @Test
+    public void testThree() {
+
+        String word = "Dad";
+        assertEquals("Dad", word);
+    }
+
+    /*
+    @Test
+    public void testLocalStorage() {
+
+        ShoppingListDefault list = new ShoppingListDefault("testDefault");
+        list.addItem(new ShoppingListItem("MtnDew", 10);
+        // Create data handlerobject
+
+        //dataHandler.saveList(list);
+
+        //assertEquals(list, word);
+    };
+    */
+
 }
