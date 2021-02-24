@@ -56,13 +56,19 @@ public class EditDefaultListActivity extends AppCompatActivity {
     }
 
     public void displayDefaultList() {
+        /*
         ArrayList<String> listPopulator = new ArrayList<>();
         for (int i = 0, max = this.defaultList.getItems().size(); i < max; i++) {
             listPopulator.add(this.defaultList.getItems().get(i).getQuantity() + " " + this.defaultList.getItems().get(i).getName());
         }
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listPopulator);
+        */  //Hopefully we don't need this
 
-        this.listView.setAdapter(arrayAdapter);
+        //instantiate custom adapter
+        CustomListViewAdapter adapter = new CustomListViewAdapter(defaultList, this);
+
+      //  ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listPopulator);
+
+        this.listView.setAdapter(adapter);
     }
 
     public void clearFields() {
@@ -76,11 +82,20 @@ public class EditDefaultListActivity extends AppCompatActivity {
         clearFields();
         displayDefaultList();
         /*this.dataHandler.setDefaultLists()*/
+
+        //TODO: Clark should we be saving the list everytime they add an item?
         /*this.dataHandler.*/saveList();
+    }
+
+    // Really Not sure if we need this, will need to look at it after we refactor over to the DataHandler
+    public void saveListActivity(View view) {
+        saveList();
     }
 
 
     public void saveList() {
+
+        //TODO: Clark, when we move this to the DataHandler, should we do this multi-threaded?
 
         Gson gson = new Gson();
 
