@@ -1,8 +1,6 @@
 package com.example.shoppinglist;
 
 
-
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,9 +12,12 @@ public class DataHandler {
      private DefaultShoppingLists defaultLists;
      private UpcomingShoppingLists upcomingLists;
      private FirebaseDatabase mFirebaseDatabase;
-     //private String filename;    //Not sure if we need this one now
+     //private String filename;    //This isn't needed when using Firebase
 
 
+    /*
+    Default constructor which creates the DB Instance from Firebase
+     */
     public DataHandler() {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
     }
@@ -47,11 +48,9 @@ public class DataHandler {
         mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //String value = dataSnapshot.getValue(String.class);
                 ShoppingListDefault list = dataSnapshot.getValue(ShoppingListDefault.class);
                 myCallback.onCallback(list);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
@@ -64,11 +63,8 @@ public class DataHandler {
         //TODO: Need to add to this method to also write to the cloud, although we need to determine
         // when the right time is to write to the cloud.
 
-
         DatabaseReference mDatabaseReference = this.mFirebaseDatabase.getReference("defaultList");
         mDatabaseReference.setValue(list);
-
     }
-
 
 }

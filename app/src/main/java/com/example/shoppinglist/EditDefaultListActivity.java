@@ -21,7 +21,6 @@ public class EditDefaultListActivity extends AppCompatActivity {
     EditText itemQuantity;
     ListView listView;
     DataHandler data;
-    // data handler object
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +35,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
         this.itemQuantity = (EditText) findViewById(R.id.ItemQuantity);
         this.listView = (ListView) findViewById(R.id.listView);
 
+        //Read the data from Firebase
         data.readData(list -> {
             Log.i("TAG","Test");
             this.defaultList = list;
@@ -47,6 +47,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
     }
 
+    //Handles the Menu item
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
@@ -65,6 +66,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
     }
 
+    //Puts the menu item on the upper bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -86,7 +88,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
     public void addItemToDefaultList(View view) {
         this.defaultList.addItem(new ShoppingListItem(this.itemName.getText().toString(), Integer.parseInt(this.itemQuantity.getText().toString())));
-        /*this.dataHandler.setDefaultLists()*/
+
         //TODO: Clark should we be saving the list everytime they add an item?
         try {
             data.writeData(this.defaultList);
@@ -100,7 +102,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
         displayDefaultList(this.defaultList);
     }
 
-    // Really Not sure if we need this, will need to look at it after we refactor over to the DataHandler
+    // TODO: This is no longer used, we should be able to delete it
     public void saveListActivity(View view) {
         try {
             data.writeData(this.defaultList);
