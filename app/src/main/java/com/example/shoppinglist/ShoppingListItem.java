@@ -9,6 +9,8 @@ public class ShoppingListItem {
         this.quantity = quantity;
     }
 
+    public ShoppingListItem() {}
+
     public void setName(String name) {
         this.name = name;
     }

@@ -1,18 +1,18 @@
 package com.example.shoppinglist;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
 
 public class EditDefaultListActivity extends AppCompatActivity {
 
@@ -20,6 +20,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
     EditText itemName;
     EditText itemQuantity;
     ListView listView;
+    DataHandler data;
     // data handler object
 
     @Override
@@ -27,46 +28,53 @@ public class EditDefaultListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_default_list);
 
+
         // instantiate data handler object
+        this.data = new DataHandler();
 
         this.itemName = (EditText) findViewById(R.id.ItemName);
         this.itemQuantity = (EditText) findViewById(R.id.ItemQuantity);
         this.listView = (ListView) findViewById(R.id.listView);
 
-        this.defaultList = /*this.dataHandler.*/loadList("default");
-        displayDefaultList();
-
+        data.readData(list -> {
+            Log.i("TAG","Test");
+            this.defaultList = list;
+            if (this.defaultList == null) {
+                this.defaultList = new ShoppingListDefault("");
+            }
+            displayDefaultList(this.defaultList);
+        });
 
     }
 
-    public ShoppingListDefault loadList(String listName) {
-
-        Gson gson = new Gson();
-
-        SharedPreferences sharedPreferences = getSharedPreferences("com.example.shoppinglist", MODE_PRIVATE);
-
-        String defaultListString = sharedPreferences.getString(listName, "");
-        ShoppingListDefault loadedList = gson.fromJson(defaultListString, ShoppingListDefault.class);
-
-        if (loadedList != null) {
-            return loadedList;
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        switch (item.getItemId()){
+            case R.id.save_list:
+                try {
+                    data.writeData(this.defaultList);
+                    Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
+                    Log.i("Save Error:",e.toString());
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return new ShoppingListDefault(listName);
     }
 
-    public void displayDefaultList() {
-        /*
-        ArrayList<String> listPopulator = new ArrayList<>();
-        for (int i = 0, max = this.defaultList.getItems().size(); i < max; i++) {
-            listPopulator.add(this.defaultList.getItems().get(i).getQuantity() + " " + this.defaultList.getItems().get(i).getName());
-        }
-        */  //Hopefully we don't need this
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.save_menu, menu);
+        return true;
+    }
 
+    public void displayDefaultList(ShoppingListDefault list) {
         //instantiate custom adapter
-        CustomListViewAdapter adapter = new CustomListViewAdapter(defaultList, this);
-
-      //  ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listPopulator);
+        CustomListViewAdapter adapter = new CustomListViewAdapter(list, this);
 
         this.listView.setAdapter(adapter);
     }
@@ -78,42 +86,28 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
     public void addItemToDefaultList(View view) {
         this.defaultList.addItem(new ShoppingListItem(this.itemName.getText().toString(), Integer.parseInt(this.itemQuantity.getText().toString())));
+        /*this.dataHandler.setDefaultLists()*/
+        //TODO: Clark should we be saving the list everytime they add an item?
+        try {
+            data.writeData(this.defaultList);
+            Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
+            Log.i("Save Error:",e.toString());
+        }
         Toast.makeText(this, this.itemName.getText().toString() + " has been added to the list" , Toast.LENGTH_LONG).show();
         clearFields();
-        displayDefaultList();
-        /*this.dataHandler.setDefaultLists()*/
-
-        //TODO: Clark should we be saving the list everytime they add an item?
-        /*this.dataHandler.*/saveList();
+        displayDefaultList(this.defaultList);
     }
 
     // Really Not sure if we need this, will need to look at it after we refactor over to the DataHandler
     public void saveListActivity(View view) {
         try {
-            saveList();
+            data.writeData(this.defaultList);
             Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
+            Log.i("Save Error:",e.toString());
         }
-    }
-
-
-    public void saveList() {
-
-        //TODO: Clark, when we move this to the DataHandler, should we do this multi-threaded?
-
-        Gson gson = new Gson();
-
-        String listStorage = gson.toJson(this.defaultList);
-
-        // Storing data into SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("com.example.shoppinglist", MODE_PRIVATE);
-
-        // Creating an Editor object to edit(write to the file)
-        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-
-        myEdit.putString(defaultList.getName(), listStorage);
-
-        myEdit.apply();
     }
 }
