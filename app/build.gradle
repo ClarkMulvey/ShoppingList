@@ -28,6 +28,8 @@ android {
     }
 }
 
+apply plugin: 'com.google.gms.google-services'
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -37,4 +39,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation platform('com.google.firebase:firebase-bom:26.5.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'androidx.annotation:annotation:1.1.0'
 }
