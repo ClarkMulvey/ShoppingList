@@ -45,6 +45,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
             displayDefaultList(this.defaultList);
         });
 
+
     }
 
     //Handles the Menu item

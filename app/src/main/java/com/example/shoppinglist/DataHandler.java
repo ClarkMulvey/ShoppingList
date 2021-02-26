@@ -39,10 +39,10 @@ public class DataHandler {
     }
 
     public void readData(FirebaseCallback myCallback) {
-    //TODO: Need to write this method to read from the local Disk
+        //TODO: Need to write this method to read from the local Disk
 
-    //TODO: Need to add to this method to also read from the cloud, although we need to determin
-    // when the right time is to read from the cloud.
+        //TODO: Need to add to this method to also read from the cloud, although we need to determin
+        // when the right time is to read from the cloud.
 
         DatabaseReference mDatabaseReference = this.mFirebaseDatabase.getReference("defaultList");
         mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
