@@ -76,8 +76,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
     public void displayDefaultList(ShoppingListDefault list) {
         //instantiate custom adapter
-        CustomListViewAdapter adapter = new CustomListViewAdapter(list, this);
-
+        CustomListViewAdapter adapter = new CustomListViewAdapter(list, this, this.data);
         this.listView.setAdapter(adapter);
     }
 

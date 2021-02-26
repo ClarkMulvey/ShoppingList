@@ -14,10 +14,14 @@ import java.util.ArrayList;
 public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<ShoppingListItem> list;
     private Context context;
+    private DataHandler data;
+    private ShoppingListDefault shoppingListDefault;
 
-    public CustomListViewAdapter(ShoppingListDefault list, Context context) {
+    public CustomListViewAdapter(ShoppingListDefault list, Context context, DataHandler data) {
         this.list = list.getItems();
+        this.shoppingListDefault = list;
         this.context = context;
+        this.data = data;
     }
 
     @Override
@@ -59,9 +63,9 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //do something
-                list.remove(position); //or some other task
+                list.remove(position);
                 notifyDataSetChanged();
+                data.writeData(shoppingListDefault);
             }
         });
 

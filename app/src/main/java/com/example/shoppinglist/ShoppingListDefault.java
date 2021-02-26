@@ -2,7 +2,6 @@ package com.example.shoppinglist;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.ArrayList;
 
 @IgnoreExtraProperties
 public class ShoppingListDefault extends ShoppingList {

@@ -3,13 +3,17 @@ package com.example.shoppinglist;
 import java.util.ArrayList;
 
 public class UpcomingShoppingLists {
-    ArrayList<ShoppingList> upcomingLists;
+    ArrayList<String> listNames ;
 
-    public ArrayList<ShoppingList> getUpcomingLists() {
-        return upcomingLists;
+    public UpcomingShoppingLists() {
+        DataHandler data = new DataHandler();
     }
 
-    public void setUpcomingLists(ArrayList<ShoppingList> upcomingLists) {
-        this.upcomingLists = upcomingLists;
+    public ArrayList<String> getListNames() {
+        return listNames;
+    }
+
+    public void setListNames(ArrayList<String> listNames) {
+        this.listNames = listNames;
     }
 }
