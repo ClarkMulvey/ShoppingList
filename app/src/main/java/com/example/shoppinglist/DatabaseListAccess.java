@@ -16,40 +16,17 @@ public class DatabaseListAccess {
 
     ArrayList<Map<Integer, String>> accessKeys;
 
+    public static String getMainKey() {
+        return mainKey;
+    }
+
+    public static void setMainKey(String mainKey) {
+        DatabaseListAccess.mainKey = mainKey;
+    }
+
     public DatabaseListAccess() {
         // instantiate data handler object
         this.data = new DataHandler();
-
-        //Read the data from Firebase
-        data.getListKeys(databaseListAccessObj -> {
-            if (databaseListAccessObj != null) {
-                if (databaseListAccessObj.getDefaultListKeys() != null) {
-                    this.defaultListKeys = databaseListAccessObj.getDefaultListKeys();
-                }
-                if (databaseListAccessObj.getUpcomingListKeys() != null) {
-                    this.upcomingListKeys = databaseListAccessObj.getUpcomingListKeys();
-                }
-            }
-
-            if (this.defaultListKeys == null) {
-                this.defaultListKeys = new ArrayList<>();
-                this.defaultListKeys.add(new CustomMap("1","defaultList"));
-                this.data.writeListKeys(this, mainKey);
-            };
-            if (this.upcomingListKeys == null) {
-                //this.upcomingListKeys = new HashMap<>();
-                //this.upcomingListKeys.put("Clark", "upcomingList");
-                //this.data.writeListKeys(this, mainKey);
-            }
-
-        }, this.mainKey);
-
-
-
-
-
-
-
     }
 
     public ArrayList<CustomMap> getDefaultListKeys() {

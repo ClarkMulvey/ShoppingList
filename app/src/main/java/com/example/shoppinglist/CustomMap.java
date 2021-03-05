@@ -11,6 +11,8 @@ public class CustomMap {
         this.value = value;
     }
 
+    public CustomMap() { }
+
     public String getKey() {
         return key;
     }
