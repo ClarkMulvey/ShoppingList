@@ -65,7 +65,7 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
             public void onClick(View v) {
                 list.remove(position);
                 notifyDataSetChanged();
-                data.writeData(shoppingListDefault);
+                data.writeData(shoppingListDefault, "defaultList");
             }
         });
 

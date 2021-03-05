@@ -6,5 +6,7 @@ to use the data ourside of the override method.
  */
 public interface FirebaseCallback {
     public void onCallback(ShoppingListDefault list);
+
+
 }
 

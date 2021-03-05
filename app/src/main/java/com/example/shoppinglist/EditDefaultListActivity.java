@@ -35,15 +35,16 @@ public class EditDefaultListActivity extends AppCompatActivity {
         this.itemQuantity = (EditText) findViewById(R.id.ItemQuantity);
         this.listView = (ListView) findViewById(R.id.listView);
 
+        String listKey = "defaultList";
+
         //Read the data from Firebase
         data.readData(list -> {
-            Log.i("TAG","Test");
             this.defaultList = list;
             if (this.defaultList == null) {
-                this.defaultList = new ShoppingListDefault("");
+                this.defaultList = new ShoppingListDefault(listKey);
             }
             displayDefaultList(this.defaultList);
-        });
+        }, listKey);
 
 
     }
@@ -54,7 +55,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.save_list:
                 try {
-                    data.writeData(this.defaultList);
+                    data.writeData(this.defaultList, "defaultList");
                     Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
@@ -91,13 +92,13 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
         //TODO: Clark should we be saving the list everytime they add an item?
         try {
-            data.writeData(this.defaultList);
+            data.writeData(this.defaultList, "defaultList");
             Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
             Log.i("Save Error:",e.toString());
         }
-        Toast.makeText(this, this.itemName.getText().toString() + " has been added to the list" , Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, this.itemName.getText().toString() + " has been added to the list" , Toast.LENGTH_LONG).show();
         clearFields();
         displayDefaultList(this.defaultList);
     }
@@ -105,7 +106,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
     // TODO: This is no longer used, we should be able to delete it
     public void saveListActivity(View view) {
         try {
-            data.writeData(this.defaultList);
+            data.writeData(this.defaultList, "defaultList");
             Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();

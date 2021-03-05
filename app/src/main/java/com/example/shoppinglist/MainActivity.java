@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        DatabaseListAccess databaseListAccess = new DatabaseListAccess();
     }
 
     public void clickViewEditDefaultList(View view) {
