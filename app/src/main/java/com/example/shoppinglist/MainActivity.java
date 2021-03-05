@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     DataHandler data;
+    DatabaseListAccess databaseListAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,24 +20,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.data = new DataHandler();
 
-        DatabaseListAccess databaseListAccess = new DatabaseListAccess();
+        this.databaseListAccess = new DatabaseListAccess();
         //Read the data from Firebase
         data.getListKeys(databaseListAccessObj -> {
             if (databaseListAccessObj != null) {
                 if (databaseListAccessObj.getDefaultListKeys() != null) {
-                    databaseListAccess.setDefaultListKeys(databaseListAccessObj.getDefaultListKeys());
+                    this.databaseListAccess.setDefaultListKeys(databaseListAccessObj.getDefaultListKeys());
                 }
                 if (databaseListAccessObj.getUpcomingListKeys() != null) {
-                    databaseListAccess.setUpcomingListKeys(databaseListAccessObj.getUpcomingListKeys());
+                    this.databaseListAccess.setUpcomingListKeys(databaseListAccessObj.getUpcomingListKeys());
                 }
             }
 
-            if (databaseListAccess.getDefaultListKeys() == null) {
-                databaseListAccess.setDefaultListKeys(new ArrayList<>());
+            /*
+            if (this.databaseListAccess.getDefaultListKeys() == null) {
+                this.databaseListAccess.setDefaultListKeys(new ArrayList<>());
 
-                databaseListAccess.getDefaultListKeys().add(new CustomMap("1", "defaultList"));
-                this.data.writeListKeys(databaseListAccess, databaseListAccess.getMainKey());
+                this.databaseListAccess.getDefaultListKeys().add(new CustomMap("1", "defaultList"));
+                //this.data.writeListKeys(databaseListAccess, databaseListAccess.getMainKey());
             };
+
+             */
+
+
             /*
             if (this.upcomingListKeys == null) {
                 //this.upcomingListKeys = new HashMap<>();
@@ -52,7 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickViewEditDefaultList(View view) {
         Intent intent = new Intent(this, EditDefaultListActivity.class);
+        intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
+
         startActivity(intent);
+
     }
 
     public void clickStartShopping(View view) {

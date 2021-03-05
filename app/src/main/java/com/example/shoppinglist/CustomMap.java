@@ -1,17 +1,19 @@
 package com.example.shoppinglist;
 
-public class CustomMap {
+import java.io.Serializable;
+
+public class CustomMap implements Serializable {
 
     private String key;
 
     private String value;
 
+    public CustomMap() { }
+
     public CustomMap(String key, String value) {
         this.key = key;
         this.value = value;
     }
-
-    public CustomMap() { }
 
     public String getKey() {
         return key;

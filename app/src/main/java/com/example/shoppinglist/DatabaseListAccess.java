@@ -1,11 +1,12 @@
 package com.example.shoppinglist;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DatabaseListAccess {
+public class DatabaseListAccess implements Serializable {
 
     // Map containing Key/Value for Default Lists
     private ArrayList<CustomMap> defaultListKeys;

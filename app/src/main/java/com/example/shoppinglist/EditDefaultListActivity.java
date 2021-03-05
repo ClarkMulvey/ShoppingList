@@ -13,20 +13,28 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 public class EditDefaultListActivity extends AppCompatActivity {
 
-    ShoppingListDefault defaultList;
-    EditText itemName;
-    EditText itemQuantity;
-    ListView listView;
-    DataHandler data;
+    private ShoppingListDefault defaultList;
+    private DataHandler data;
+    private ArrayList<CustomMap> defaultKeys;
+
+    private EditText itemName;
+    private EditText itemQuantity;
+    private ListView listView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_default_list);
 
+
+        // instantiate the defaultKeys list
+        this.defaultKeys = (ArrayList<CustomMap>) getIntent().getSerializableExtra("defaultKeys");
 
         // instantiate data handler object
         this.data = new DataHandler();
