@@ -1,6 +1,8 @@
 package com.example.shoppinglist;
 
 
+import com.example.shoppinglist.interfaces.FirebaseCallback;
+import com.example.shoppinglist.interfaces.FirebaseCallbackListKeys;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -9,33 +11,13 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class DataHandler {
-     private DefaultShoppingLists defaultLists;
-     private UpcomingShoppingLists upcomingLists;
      private FirebaseDatabase mFirebaseDatabase;
-     //private String filename;    //This isn't needed when using Firebase
-
 
     /*
     Default constructor which creates the DB Instance from Firebase
      */
     public DataHandler() {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-    }
-
-    public DefaultShoppingLists getDefaultLists() {
-        return defaultLists;
-    }
-
-    public void setDefaultLists(DefaultShoppingLists defaultLists) {
-        this.defaultLists = defaultLists;
-    }
-
-    public UpcomingShoppingLists getUpcomingLists() {
-        return upcomingLists;
-    }
-
-    public void setUpcomingLists(UpcomingShoppingLists upcomingLists) {
-        this.upcomingLists = upcomingLists;
     }
 
     public void readData(FirebaseCallback myCallback, String listKey) {
@@ -48,7 +30,7 @@ public class DataHandler {
         mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ShoppingListDefault list = dataSnapshot.getValue(ShoppingListDefault.class);
+                ShoppingList list = dataSnapshot.getValue(ShoppingList.class);
                 myCallback.onCallback(list);
             }
             @Override
@@ -74,7 +56,7 @@ public class DataHandler {
         });
     }
 
-    public void writeData(ShoppingListDefault list, String listKey){
+    public void writeData(ShoppingList list, String listKey){
 
         //TODO: Need to write this method to write to the local Disk
 

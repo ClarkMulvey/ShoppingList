@@ -10,31 +10,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingList">
-        <activity android:name=".EditDefaultListActivity" android:parentActivityName=".MainActivity">
+        <activity android:name=".activities.EditDefaultListActivity" android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" /></activity>
-        <activity android:name=".CreateUpcomingTripListActivity" android:parentActivityName=".MainActivity">
+                android:value=".activities.MainActivity" /></activity>
+        <activity android:name=".activities.CreateUpcomingTripListActivity" android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" /></activity>
-        <activity android:name=".EditUpcomingTripActivity" android:parentActivityName=".MainActivity">
+                android:value=".activities.MainActivity" /></activity>
+        <activity android:name=".activities.EditUpcomingTripActivity" android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" /></activity>
-        <activity android:name=".ShoppingSessionActivity" android:parentActivityName=".MainActivity">
+                android:value=".activities.MainActivity" /></activity>
+        <activity android:name=".activities.ShoppingSessionActivity" android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" /></activity>
-        <activity android:name=".StartShoppingActivity" android:parentActivityName=".MainActivity">
+                android:value=".activities.MainActivity" /></activity>
+        <activity android:name=".activities.StartShoppingActivity" android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" /></activity>
-        <activity android:name=".ViewUpcomingListsActivity" android:parentActivityName=".MainActivity">
+                android:value=".activities.MainActivity" /></activity>
+        <activity android:name=".activities.ViewUpcomingListsActivity" android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" /></activity>
-        <activity android:name=".MainActivity">
+                android:value=".activities.MainActivity" /></activity>
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -15,9 +15,9 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<ShoppingListItem> list;
     private Context context;
     private DataHandler data;
-    private ShoppingListDefault shoppingListDefault;
+    private ShoppingList shoppingListDefault;
 
-    public CustomListViewAdapter(ShoppingListDefault list, Context context, DataHandler data) {
+    public CustomListViewAdapter(ShoppingList list, Context context, DataHandler data) {
         this.list = list.getItems();
         this.shoppingListDefault = list;
         this.context = context;

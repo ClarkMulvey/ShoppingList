@@ -1,8 +1,10 @@
-package com.example.shoppinglist;
+package com.example.shoppinglist.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.shoppinglist.R;
 
 public class ViewUpcomingListsActivity extends AppCompatActivity {
 

@@ -18,8 +18,8 @@ public class ExampleUnitTest {
     @Test
     public void testLocalStorage() {
         // Create dataHandler object
-        ShoppingListDefault list = new ShoppingListDefault("testDefault");
-        list.addItem(new ShoppingListItem("MtnDew", 10));
+        //ShoppingListDefault list = new ShoppingListDefault("testDefault");
+        //list.addItem(new ShoppingListItem("MtnDew", 10));
 
         //dataHandler.saveList(list);
 

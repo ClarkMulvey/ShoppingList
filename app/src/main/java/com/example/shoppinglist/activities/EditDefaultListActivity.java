@@ -1,4 +1,4 @@
-package com.example.shoppinglist;
+package com.example.shoppinglist.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +13,19 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.shoppinglist.CustomListViewAdapter;
+import com.example.shoppinglist.CustomMap;
+import com.example.shoppinglist.DataHandler;
+import com.example.shoppinglist.R;
+import com.example.shoppinglist.ShoppingList;
+import com.example.shoppinglist.ShoppingListItem;
+
 import java.util.ArrayList;
 
 
 public class EditDefaultListActivity extends AppCompatActivity {
 
-    private ShoppingListDefault defaultList;
+    private ShoppingList defaultList;
     private DataHandler data;
     private ArrayList<CustomMap> defaultKeys;
 
@@ -49,7 +56,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
         data.readData(list -> {
             this.defaultList = list;
             if (this.defaultList == null) {
-                this.defaultList = new ShoppingListDefault(listKey);
+                this.defaultList = new ShoppingList();
             }
             displayDefaultList(this.defaultList);
         }, listKey);
@@ -84,7 +91,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
         return true;
     }
 
-    public void displayDefaultList(ShoppingListDefault list) {
+    public void displayDefaultList(ShoppingList list) {
         //instantiate custom adapter
         CustomListViewAdapter adapter = new CustomListViewAdapter(list, this, this.data);
         this.listView.setAdapter(adapter);

@@ -1,4 +1,4 @@
-package com.example.shoppinglist;
+package com.example.shoppinglist.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,9 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
+import com.example.shoppinglist.DataHandler;
+import com.example.shoppinglist.DatabaseListAccess;
+import com.example.shoppinglist.R;
 
 public class MainActivity extends AppCompatActivity {
 
