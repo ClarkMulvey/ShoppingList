@@ -2,13 +2,20 @@ package com.example.shoppinglist.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.shoppinglist.CustomMap;
 import com.example.shoppinglist.DataHandler;
 import com.example.shoppinglist.DatabaseListAccess;
 import com.example.shoppinglist.R;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,15 +41,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            /*
             if (this.databaseListAccess.getDefaultListKeys() == null) {
                 this.databaseListAccess.setDefaultListKeys(new ArrayList<>());
 
                 this.databaseListAccess.getDefaultListKeys().add(new CustomMap("1", "defaultList"));
-                //this.data.writeListKeys(databaseListAccess, databaseListAccess.getMainKey());
+                this.data.writeListKeys(databaseListAccess, databaseListAccess.getMainKey());
             };
 
-             */
 
 
             /*
@@ -58,9 +63,40 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Handles the Menu item
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        switch (item.getItemId()){
+            case R.id.default_lists:
+                clickViewDefaultLists();  //TODO Need to fix this method call
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+
+    //Puts the menu item on the upper bar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.default_list, menu);
+        return true;
+    }
+
     public void clickViewEditDefaultList(View view) {
         Intent intent = new Intent(this, EditDefaultListActivity.class);
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
+
+        startActivity(intent);
+
+    }
+
+    public void clickViewDefaultLists() {
+        Intent intent = new Intent(this, ViewDefaultListsActivity.class);
+        intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
+        intent.putExtra("listKey", this.databaseListAccess.getMainKey());
 
         startActivity(intent);
 
