@@ -85,7 +85,7 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void addDefaultList() {
-        Instant instant = Instant.now();
+        Long instant = System.currentTimeMillis();
         String newKey = "default-" + instant.toString();
         //TODO: Need to figure out how we are going to add a name to the list
 
