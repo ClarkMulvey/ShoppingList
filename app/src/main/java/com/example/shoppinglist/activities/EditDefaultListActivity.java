@@ -14,20 +14,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppinglist.CustomListViewAdapter;
-import com.example.shoppinglist.CustomMap;
 import com.example.shoppinglist.DataHandler;
 import com.example.shoppinglist.R;
 import com.example.shoppinglist.ShoppingList;
 import com.example.shoppinglist.ShoppingListItem;
-
-import java.util.ArrayList;
 
 
 public class EditDefaultListActivity extends AppCompatActivity {
 
     private ShoppingList defaultList;
     private DataHandler data;
-    private ArrayList<CustomMap> defaultKeys;
 
     private EditText itemName;
     private EditText itemQuantity;
@@ -41,9 +37,6 @@ public class EditDefaultListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_default_list);
 
 
-        // instantiate the defaultKeys list
-        this.defaultKeys = (ArrayList<CustomMap>) getIntent().getSerializableExtra("defaultKeys");
-
         // instantiate data handler object
         this.data = new DataHandler();
 
@@ -51,6 +44,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
         this.itemQuantity = (EditText) findViewById(R.id.ItemQuantity);
         this.listView = (ListView) findViewById(R.id.listView);
 
+        //Get the listKet from the Intent Extras, in order to pull the correct data from the DB
         this.listKey = (String) getIntent().getStringExtra("listKey");
 
        // String listKey = "defaultList";

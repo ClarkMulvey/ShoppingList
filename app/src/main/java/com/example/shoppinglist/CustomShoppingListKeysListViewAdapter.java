@@ -15,15 +15,17 @@ public class CustomShoppingListKeysListViewAdapter extends BaseAdapter implement
     private ArrayList<CustomMap> list;
     private Context context;
     private DataHandler data;
+    private DatabaseListAccess databaseListAccess;
     private ShoppingList shoppingListDefault;
     private String listKey;
 
 
-    public CustomShoppingListKeysListViewAdapter(ArrayList<CustomMap> list, Context context, DataHandler data, String listKey) {
+    public CustomShoppingListKeysListViewAdapter(ArrayList<CustomMap> list, Context context, DataHandler data, DatabaseListAccess databaseListAccess, String listKey) {
         this.list = list;
         this.context = context;
         this.data = data;
         this.listKey = listKey;
+        this.databaseListAccess = databaseListAccess;
     }
 
     @Override
@@ -62,9 +64,12 @@ public class CustomShoppingListKeysListViewAdapter extends BaseAdapter implement
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                String shoppingListKey = list.get(position).getKey();
                 list.remove(position);
                 notifyDataSetChanged();
-                data.writeData(shoppingListDefault, listKey);
+                data.writeListKeys(databaseListAccess, listKey);
+                ShoppingList deleteShoppingList = new ShoppingList();
+                data.writeData(deleteShoppingList, shoppingListKey);
             }
         });
 

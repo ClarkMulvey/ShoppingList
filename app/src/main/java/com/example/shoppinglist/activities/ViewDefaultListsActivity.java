@@ -19,7 +19,6 @@ import com.example.shoppinglist.DatabaseListAccess;
 import com.example.shoppinglist.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.time.Instant;
 import java.util.ArrayList;
 
 public class ViewDefaultListsActivity extends AppCompatActivity {
@@ -65,11 +64,9 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
 
     }
 
-
-
     public void displayDefaultList(ArrayList<CustomMap> defaultKeys) {
         //instantiate custom adapter
-        CustomShoppingListKeysListViewAdapter adapter = new CustomShoppingListKeysListViewAdapter(defaultKeys, this, this.data, listKey);
+        CustomShoppingListKeysListViewAdapter adapter = new CustomShoppingListKeysListViewAdapter(defaultKeys, this, this.data, this.databaseListAccess, listKey);
         this.listView.setAdapter(adapter);
 
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
