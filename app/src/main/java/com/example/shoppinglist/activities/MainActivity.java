@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             if (this.databaseListAccess.getDefaultListKeys() == null) {
                 this.databaseListAccess.setDefaultListKeys(new ArrayList<>());
 
-                this.databaseListAccess.getDefaultListKeys().add(new CustomMap("1", "defaultList"));
+                this.databaseListAccess.getDefaultListKeys().add(new CustomMap("default-1", "Default List"));
                 this.data.writeListKeys(databaseListAccess, databaseListAccess.getMainKey());
             };
 

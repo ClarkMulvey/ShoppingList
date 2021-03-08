@@ -16,12 +16,14 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
     private Context context;
     private DataHandler data;
     private ShoppingList shoppingListDefault;
+    String listKey;
 
-    public CustomListViewAdapter(ShoppingList list, Context context, DataHandler data) {
+    public CustomListViewAdapter(ShoppingList list, Context context, DataHandler data, String listKey) {
         this.list = list.getItems();
         this.shoppingListDefault = list;
         this.context = context;
         this.data = data;
+        this.listKey = listKey;
     }
 
     @Override
@@ -65,7 +67,7 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
             public void onClick(View v) {
                 list.remove(position);
                 notifyDataSetChanged();
-                data.writeData(shoppingListDefault, "defaultList");
+                data.writeData(shoppingListDefault, listKey);
             }
         });
 

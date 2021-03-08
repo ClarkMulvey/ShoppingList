@@ -1,8 +1,5 @@
 package com.example.shoppinglist.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +9,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppinglist.CustomListViewAdapter;
 import com.example.shoppinglist.CustomMap;
@@ -32,6 +32,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
     private EditText itemName;
     private EditText itemQuantity;
     private ListView listView;
+    private String listKey;
 
 
     @Override
@@ -50,7 +51,9 @@ public class EditDefaultListActivity extends AppCompatActivity {
         this.itemQuantity = (EditText) findViewById(R.id.ItemQuantity);
         this.listView = (ListView) findViewById(R.id.listView);
 
-        String listKey = "defaultList";
+        this.listKey = (String) getIntent().getStringExtra("listKey");
+
+       // String listKey = "defaultList";
 
         //Read the data from Firebase
         data.readData(list -> {
@@ -70,7 +73,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.save_list:
                 try {
-                    data.writeData(this.defaultList, "defaultList");
+                    data.writeData(this.defaultList, this.listKey);
                     Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
@@ -93,7 +96,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
     public void displayDefaultList(ShoppingList list) {
         //instantiate custom adapter
-        CustomListViewAdapter adapter = new CustomListViewAdapter(list, this, this.data);
+        CustomListViewAdapter adapter = new CustomListViewAdapter(list, this, this.data, this.listKey);
         this.listView.setAdapter(adapter);
     }
 
@@ -107,7 +110,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
         //TODO: Clark should we be saving the list everytime they add an item?
         try {
-            data.writeData(this.defaultList, "defaultList");
+            data.writeData(this.defaultList, this.listKey);
             Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
@@ -116,16 +119,5 @@ public class EditDefaultListActivity extends AppCompatActivity {
         //Toast.makeText(this, this.itemName.getText().toString() + " has been added to the list" , Toast.LENGTH_LONG).show();
         clearFields();
         displayDefaultList(this.defaultList);
-    }
-
-    // TODO: This is no longer used, we should be able to delete it
-    public void saveListActivity(View view) {
-        try {
-            data.writeData(this.defaultList, "defaultList");
-            Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
-            Log.i("Save Error:",e.toString());
-        }
     }
 }

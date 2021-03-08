@@ -38,7 +38,7 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
 
     public void clickViewEditDefaultList(Integer position) {
         Intent intent = new Intent(this, EditDefaultListActivity.class);
-        intent.putExtra("listKey", this.defaultKeys.get(position));
+        intent.putExtra("listKey", this.defaultKeys.get(position).getKey());
 
         startActivity(intent);
 
