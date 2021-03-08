@@ -48,17 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 this.data.writeListKeys(databaseListAccess, databaseListAccess.getMainKey());
             };
 
-
-
-            /*
-            if (this.upcomingListKeys == null) {
-                //this.upcomingListKeys = new HashMap<>();
-                //this.upcomingListKeys.put("Clark", "upcomingList");
-                //this.data.writeListKeys(this, mainKey);
-            }
-
-             */
-
         }, databaseListAccess.getMainKey());
 
     }
@@ -68,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
             case R.id.default_lists:
-                clickViewDefaultLists();  //TODO Need to fix this method call
+                clickViewDefaultLists();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

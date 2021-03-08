@@ -108,7 +108,6 @@ public class EditDefaultListActivity extends AppCompatActivity {
     public void addItemToDefaultList(View view) {
         this.defaultList.addItem(new ShoppingListItem(this.itemName.getText().toString(), Integer.parseInt(this.itemQuantity.getText().toString())));
 
-        //TODO: Clark should we be saving the list everytime they add an item?
         try {
             data.writeData(this.defaultList, this.listKey);
             Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
