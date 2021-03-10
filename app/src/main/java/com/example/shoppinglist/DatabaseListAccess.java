@@ -2,8 +2,6 @@ package com.example.shoppinglist;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class DatabaseListAccess implements Serializable {
@@ -25,10 +23,7 @@ public class DatabaseListAccess implements Serializable {
         DatabaseListAccess.mainKey = mainKey;
     }
 
-    public DatabaseListAccess() {
-        // instantiate data handler object
-        this.data = new DataHandler();
-    }
+    public DatabaseListAccess() { }
 
     public ArrayList<CustomMap> getDefaultListKeys() {
         return defaultListKeys;

@@ -59,6 +59,8 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
     public void clickViewEditDefaultList(Integer position) {
         Intent intent = new Intent(this, EditDefaultListActivity.class);
         intent.putExtra("listKey", this.defaultKeys.get(position).getKey());
+        intent.putExtra("arrayPosition", position);
+        intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
 
         startActivity(intent);
 
@@ -87,6 +89,7 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
         //TODO: Need to figure out how we are going to add a name to the list
 
         this.databaseListAccess.getDefaultListKeys().add(new CustomMap(newKey, ""));
+        Integer position = this.databaseListAccess.getDefaultListKeys().size() - 1;
 
         try {
             this.data.writeListKeys(databaseListAccess, databaseListAccess.getMainKey());
@@ -96,7 +99,13 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
             Log.i("Save Error:",e.toString());
         }
         //Toast.makeText(this, this.itemName.getText().toString() + " has been added to the list" , Toast.LENGTH_LONG).show();
-        displayDefaultList(this.defaultKeys);
+        //displayDefaultList(this.defaultKeys);
+        Intent intent = new Intent(this, EditDefaultListActivity.class);
+        intent.putExtra("listKey", this.defaultKeys.get(position).getKey());
+        intent.putExtra("arrayPosition", position);
+        intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
+
+        startActivity(intent);
     }
 
 
