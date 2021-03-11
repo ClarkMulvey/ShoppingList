@@ -35,11 +35,11 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_default_lists);
 
         // instantiate the defaultKeys list
-        this.databaseListAccess = new DatabaseListAccess();
-        this.databaseListAccess.setDefaultListKeys((ArrayList<CustomMap>) getIntent().getSerializableExtra("defaultKeys"));
-        this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
-        this.listKey = (String) getIntent().getStringExtra("listKey");
+        this.databaseListAccess = (DatabaseListAccess) getIntent().getSerializableExtra("databaseListAccess");
 
+        this.listKey = this.databaseListAccess.getMainKey();
+
+        this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
 
         this.listView = (ListView) findViewById(R.id.defaultListView);
 
@@ -61,6 +61,7 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
         intent.putExtra("listKey", this.defaultKeys.get(position).getKey());
         intent.putExtra("arrayPosition", position);
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
+        intent.putExtra("databaseListAccess", this.databaseListAccess);
 
         startActivity(intent);
 
@@ -104,6 +105,7 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
         intent.putExtra("listKey", this.defaultKeys.get(position).getKey());
         intent.putExtra("arrayPosition", position);
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
+        intent.putExtra("databaseListAccess", this.databaseListAccess);
 
         startActivity(intent);
     }

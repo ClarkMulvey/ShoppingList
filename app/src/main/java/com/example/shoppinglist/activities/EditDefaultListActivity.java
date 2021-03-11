@@ -44,9 +44,8 @@ public class EditDefaultListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_default_list);
-        this.databaseListAccess = new DatabaseListAccess();
 
-        this.databaseListAccess.setDefaultListKeys((ArrayList<CustomMap>) getIntent().getSerializableExtra("defaultKeys"));
+        this.databaseListAccess = (DatabaseListAccess) getIntent().getSerializableExtra("databaseListAccess");
         this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
 
 
@@ -66,7 +65,6 @@ public class EditDefaultListActivity extends AppCompatActivity {
         this.listInfo = this.databaseListAccess.getDefaultListKeys().get(this.arrayPosition);
 
         this.listName.setText(this.listInfo.getValue());
-        // String listKey = "defaultList";
 
         //Read the data from Firebase
         data.readData(list -> {
@@ -90,7 +88,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
                     Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
-                    Log.i("Save Error:",e.toString());
+                    Log.e("EditDefaultListAct",e.toString());
                 }
                 return true;
             default:
@@ -109,9 +107,9 @@ public class EditDefaultListActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
+    protected void onPause() {
         // call the superclass method first
-        super.onStop();
+        super.onPause();
         this.listInfo.setValue(this.listName.getText().toString());
         this.data.writeListKeys(this.databaseListAccess, this.databaseListAccess.getMainKey());
     }
@@ -137,7 +135,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
             Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
             Log.i("Save Error:",e.toString());
         }
-        //Toast.makeText(this, this.itemName.getText().toString() + " has been added to the list" , Toast.LENGTH_LONG).show();
+
         clearFields();
         displayDefaultList(this.defaultList);
     }

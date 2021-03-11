@@ -46,63 +46,77 @@ public class MainActivity extends AppCompatActivity {
 
                 this.databaseListAccess.getDefaultListKeys().add(new CustomMap("default-1", "Default List"));
                 this.data.writeListKeys(databaseListAccess, databaseListAccess.getMainKey());
-            };
+            }
 
         }, databaseListAccess.getMainKey());
 
     }
 
-    //Handles the Menu item
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        switch (item.getItemId()){
-            case R.id.default_lists:
-                clickViewDefaultLists();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 0) {
+
+            this.databaseListAccess = (DatabaseListAccess) data.getSerializableExtra("databaseListAccess");
+
+        }
+    }
+
+        //Handles the Menu item
+        @Override
+        public boolean onOptionsItemSelected (@NonNull MenuItem item){
+            switch (item.getItemId()) {
+                case R.id.default_lists:
+                    clickViewDefaultLists();
+                    return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
+
         }
 
+
+        //Puts the menu item on the upper bar
+        @Override
+        public boolean onCreateOptionsMenu (Menu menu){
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.default_list, menu);
+            return true;
+        }
+
+        public void clickViewEditDefaultList (View view){
+            Intent intent = new Intent(this, EditDefaultListActivity.class);
+            intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
+
+
+            startActivity(intent);
+
+        }
+
+        public void clickViewDefaultLists () {
+            Intent intent = new Intent(this, ViewDefaultListsActivity.class);
+            intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
+            intent.putExtra("listKey", this.databaseListAccess.getMainKey());
+            intent.putExtra("databaseListAccess", this.databaseListAccess);
+
+            //startActivityForResult(intent, 0);
+            startActivity(intent);
+
+        }
+
+        public void clickStartShopping (View view){
+            Intent intent = new Intent(this, StartShoppingActivity.class);
+            startActivity(intent);
+        }
+
+        public void clickViewUpcomingList (View view){
+            Intent intent = new Intent(this, ViewUpcomingListsActivity.class);
+            startActivity(intent);
+        }
+
+        public void clickCreateUpcomingTripList (View view){
+            Intent intent = new Intent(this, CreateUpcomingTripListActivity.class);
+            startActivity(intent);
+        }
     }
-
-
-    //Puts the menu item on the upper bar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.default_list, menu);
-        return true;
-    }
-
-    public void clickViewEditDefaultList(View view) {
-        Intent intent = new Intent(this, EditDefaultListActivity.class);
-        intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
-
-        startActivity(intent);
-
-    }
-
-    public void clickViewDefaultLists() {
-        Intent intent = new Intent(this, ViewDefaultListsActivity.class);
-        intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
-        intent.putExtra("listKey", this.databaseListAccess.getMainKey());
-
-        startActivity(intent);
-
-    }
-
-    public void clickStartShopping(View view) {
-        Intent intent = new Intent(this, StartShoppingActivity.class);
-        startActivity(intent);
-    }
-
-    public void clickViewUpcomingList(View view) {
-        Intent intent = new Intent(this, ViewUpcomingListsActivity.class);
-        startActivity(intent);
-    }
-
-    public void clickCreateUpcomingTripList(View view) {
-        Intent intent = new Intent(this, CreateUpcomingTripListActivity.class);
-        startActivity(intent);
-    }
-}
