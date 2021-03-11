@@ -31,7 +31,7 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.EditUpcomingTripActivity"
+            android:name=".activities.EditUpcomingListActivity"
             android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

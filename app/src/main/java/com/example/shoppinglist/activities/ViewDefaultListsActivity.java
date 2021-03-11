@@ -87,7 +87,6 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
     public void addDefaultList() {
         Long instant = System.currentTimeMillis();
         String newKey = "default-" + instant.toString();
-        //TODO: Need to figure out how we are going to add a name to the list
 
         this.databaseListAccess.getDefaultListKeys().add(new CustomMap(newKey, ""));
         Integer position = this.databaseListAccess.getDefaultListKeys().size() - 1;

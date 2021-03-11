@@ -1,12 +1,12 @@
 package com.example.shoppinglist.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppinglist.R;
 
-public class EditUpcomingTripActivity extends AppCompatActivity {
+public class EditUpcomingListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
