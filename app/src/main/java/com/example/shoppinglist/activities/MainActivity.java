@@ -188,6 +188,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void clickViewEditUpcomingList(Integer position) {
+
+        //TODO: This should really go to the start shopping activity for the specific list
         Intent intent = new Intent(this, EditUpcomingListActivity.class);
         intent.putExtra("listKey", this.upcomingKeys.get(position).getKey());
         intent.putExtra("arrayPosition", position);
