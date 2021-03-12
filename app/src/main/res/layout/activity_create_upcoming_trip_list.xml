@@ -18,36 +18,41 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/textDate"
+        android:id="@+id/upcomingListName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="DD/MM/YYYY"
-        android:inputType="date"
+        android:hint="@string/upcomingListName"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createListText" />
 
     <ListView
-        android:id="@+id/createUpcomingListView"
-        android:layout_width="231dp"
-        android:layout_height="259dp"
+        android:id="@+id/defaultListsView"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textDate"
+        app:layout_constraintTop_toBottomOf="@+id/upcomingListName"
         app:layout_constraintVertical_bias="0.297" />
 
     <Button
         android:id="@+id/listSubmitBtn"
         android:layout_width="143dp"
         android:layout_height="64dp"
-        android:layout_marginTop="52dp"
+        android:onClick="populateUpcomingList"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createUpcomingListView"
-        app:layout_constraintVertical_bias="0.212" />
+        app:layout_constraintTop_toBottomOf="@+id/defaultListsView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

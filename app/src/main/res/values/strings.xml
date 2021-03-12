@@ -20,4 +20,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="default_lists">View Default Lists</string>
     <string name="list_name_edit_text">Enter List Name</string>
+    <string name="upcomingListName">Enter List Name ex. DD/MM</string>
 </resources>

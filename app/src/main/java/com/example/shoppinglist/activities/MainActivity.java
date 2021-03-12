@@ -140,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("listKey", this.databaseListAccess.getMainKey());
         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
-        //startActivityForResult(intent, 0);
         startActivity(intent);
 
     }
@@ -166,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         String newKey = "Upcoming-" + instant.toString();
 
         this.databaseListAccess.getUpcomingListKeys().add(new CustomMap(newKey, ""));
-        Integer position = this.databaseListAccess.getDefaultListKeys().size() - 1;
+        Integer position = this.databaseListAccess.getUpcomingListKeys().size() - 1;
 
         try {
             this.data.writeListKeys(databaseListAccess, databaseListAccess.getMainKey());
@@ -176,16 +175,27 @@ public class MainActivity extends AppCompatActivity {
             Log.i("Save Error:",e.toString());
         }
 
-        //TODO: Need to edit this section to point to a new Create Upcoming List Activity
-/*
-        Intent intent = new Intent(this, EditDefaultListActivity.class);
-        intent.putExtra("listKey", this.defaultKeys.get(position).getKey());
+
+        Intent intent = new Intent(this, CreateUpcomingTripListActivity.class);
+        intent.putExtra("listKey", this.upcomingKeys.get(position).getKey());
         intent.putExtra("arrayPosition", position);
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
         startActivity(intent);
-*/
+
+    }
+
+
+    public void clickViewEditUpcomingList(Integer position) {
+        Intent intent = new Intent(this, EditUpcomingListActivity.class);
+        intent.putExtra("listKey", this.upcomingKeys.get(position).getKey());
+        intent.putExtra("arrayPosition", position);
+        intent.putExtra("defaultKeys", this.databaseListAccess.getUpcomingListKeys());
+        intent.putExtra("databaseListAccess", this.databaseListAccess);
+
+        startActivity(intent);
+
     }
 
     public void displayUpcomingList(ArrayList<CustomMap> defaultKeys) {
@@ -198,10 +208,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
                 //TODO: Need to implement this Method, and then uncomment this
-             //   clickEditUpcomingList(position);
+                clickEditUpcomingList(position);
             }
 
         });
+
+    }
+
+    public void clickEditUpcomingList (Integer position) {
+        Intent intent = new Intent(this, EditUpcomingListActivity.class);
+        intent.putExtra("listKey", this.databaseListAccess.getUpcomingListKeys().get(position).getKey());
+        intent.putExtra("arrayPosition", position);
+        intent.putExtra("databaseListAccess", this.databaseListAccess);
+
+        startActivity(intent);
 
     }
 }

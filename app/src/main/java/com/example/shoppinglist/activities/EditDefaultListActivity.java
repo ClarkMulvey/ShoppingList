@@ -55,9 +55,9 @@ public class EditDefaultListActivity extends AppCompatActivity {
         this.itemName = (EditText) findViewById(R.id.ItemName);
         this.itemQuantity = (EditText) findViewById(R.id.ItemQuantity);
         this.listView = (ListView) findViewById(R.id.listView);
-        this.listName = (EditText) findViewById(R.id.listName);
+        this.listName = (EditText) findViewById(R.id.upcomingListName);
 
-        //Get the listKet from the Intent Extras, in order to pull the correct data from the DB
+        //Get the listKey from the Intent Extras, in order to pull the correct data from the DB
         this.listKey = (String) getIntent().getStringExtra("listKey");
         this.arrayPosition =  (Integer) getIntent().getIntExtra("arrayPosition", 0);
 

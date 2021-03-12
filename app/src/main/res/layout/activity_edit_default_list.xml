@@ -20,7 +20,7 @@
         app:layout_constraintTop_toBottomOf="@+id/listView" />
 
     <EditText
-        android:id="@+id/listName"
+        android:id="@+id/upcomingListName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -63,6 +63,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listName" />
+        app:layout_constraintTop_toBottomOf="@+id/upcomingListName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
