@@ -92,16 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 0) {
-
-            this.databaseListAccess = (DatabaseListAccess) data.getSerializableExtra("databaseListAccess");
-
-        }
-    }
 
     //Handles the Menu item
     @Override
@@ -223,7 +213,26 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("arrayPosition", position);
         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+        //startActivity(intent);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //onActivityResult
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+
+            if (resultCode == RESULT_OK) {
+                this.databaseListAccess = (DatabaseListAccess) data.getSerializableExtra("databaseListAccess");
+                this.listKey = this.databaseListAccess.getMainKey();
+                this.upcomingKeys = this.databaseListAccess.getUpcomingListKeys();
+                displayUpcomingList(this.upcomingKeys);
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Do nothing?
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.shoppinglist.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppinglist.CustomListViewAdapter;
@@ -48,6 +50,12 @@ public class EditDefaultListActivity extends AppCompatActivity {
         this.databaseListAccess = (DatabaseListAccess) getIntent().getSerializableExtra("databaseListAccess");
         this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
 
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         // instantiate data handler object
         this.data = new DataHandler();
@@ -78,6 +86,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
     }
 
+
     //Handles the Menu item
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
@@ -90,6 +99,9 @@ public class EditDefaultListActivity extends AppCompatActivity {
                     Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
                     Log.e("EditDefaultListAct",e.toString());
                 }
+                return true;
+            case android.R.id.home:
+                this.onPause();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -112,6 +124,11 @@ public class EditDefaultListActivity extends AppCompatActivity {
         super.onPause();
         this.listInfo.setValue(this.listName.getText().toString());
         this.data.writeListKeys(this.databaseListAccess, this.databaseListAccess.getMainKey());
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("databaseListAccess", this.databaseListAccess);
+        setResult(RESULT_OK,returnIntent);
+        this.finish();
+
     }
 
     public void displayDefaultList(ShoppingList list) {

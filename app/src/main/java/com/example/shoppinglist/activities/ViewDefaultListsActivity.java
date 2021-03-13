@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppinglist.CustomMap;
@@ -43,6 +46,12 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
 
         this.listView = (ListView) findViewById(R.id.defaultListView);
 
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         displayDefaultList(this.defaultKeys);
 
         FloatingActionButton fab = findViewById(R.id.fabAddDefaultList);
@@ -56,6 +65,36 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //onActivityResult
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+
+            if (resultCode == RESULT_OK) {
+                this.databaseListAccess = (DatabaseListAccess) data.getSerializableExtra("databaseListAccess");
+                this.listKey = this.databaseListAccess.getMainKey();
+                this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
+                displayDefaultList(this.defaultKeys);
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Do nothing?
+            }
+        }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void clickViewEditDefaultList(Integer position) {
         Intent intent = new Intent(this, EditDefaultListActivity.class);
         intent.putExtra("listKey", this.defaultKeys.get(position).getKey());
@@ -63,7 +102,8 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+        //startActivity(intent);
 
     }
 
@@ -106,7 +146,8 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+        //startActivity(intent);
     }
 
 
