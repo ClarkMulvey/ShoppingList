@@ -91,12 +91,26 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
+    /*
+    @Override
+    protected void onPause() {
+        // call the superclass method first
+        super.onPause();
+        this.data.writeListKeys(this.databaseListAccess, this.databaseListAccess.getMainKey());
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("databaseListAccess", this.databaseListAccess);
+        setResult(RESULT_OK,returnIntent);
+        //this.finish();
+    }
+     */
+
     public void clickViewEditDefaultList(Integer position) {
-        Intent intent = new Intent(this, EditDefaultListActivity.class);
+        Intent intent = new Intent(ViewDefaultListsActivity.this, EditDefaultListActivity.class);
         intent.putExtra("listKey", this.defaultKeys.get(position).getKey());
         intent.putExtra("arrayPosition", position);
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
@@ -140,7 +154,7 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
         }
         //Toast.makeText(this, this.itemName.getText().toString() + " has been added to the list" , Toast.LENGTH_LONG).show();
         //displayDefaultList(this.defaultKeys);
-        Intent intent = new Intent(this, EditDefaultListActivity.class);
+        Intent intent = new Intent(ViewDefaultListsActivity.this, EditDefaultListActivity.class);
         intent.putExtra("listKey", this.defaultKeys.get(position).getKey());
         intent.putExtra("arrayPosition", position);
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());

@@ -50,13 +50,6 @@ public class EditDefaultListActivity extends AppCompatActivity {
         this.databaseListAccess = (DatabaseListAccess) getIntent().getSerializableExtra("databaseListAccess");
         this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
 
-        // calling the action bar
-        ActionBar actionBar = getSupportActionBar();
-
-        // showing the back button in action bar
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-
         // instantiate data handler object
         this.data = new DataHandler();
 
@@ -83,6 +76,11 @@ public class EditDefaultListActivity extends AppCompatActivity {
             displayDefaultList(this.defaultList);
         }, listKey);
 
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
 

@@ -41,32 +41,42 @@ public class MainActivity extends AppCompatActivity {
         this.data = new DataHandler();
 
         this.databaseListAccess = new DatabaseListAccess();
+
+        readDataFromFirebase();
+
+        FloatingActionButton fab = findViewById(R.id.fabAddUpcomingList);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View view) {
+               addUpcomingList();
+            }
+        });
+
+    }
+
+    public void readDataFromFirebase(){
         //Read the data from Firebase
         data.getListKeys(databaseListAccessObj -> {
-            if (databaseListAccessObj != null) {
-                if (databaseListAccessObj.getDefaultListKeys() != null) {
-                    this.databaseListAccess.setDefaultListKeys(databaseListAccessObj.getDefaultListKeys());
-                }
-                if (databaseListAccessObj.getUpcomingListKeys() != null) {
-                    this.databaseListAccess.setUpcomingListKeys(databaseListAccessObj.getUpcomingListKeys());
-                }
-            }
+                    if (databaseListAccessObj != null) {
+                        if (databaseListAccessObj.getDefaultListKeys() != null) {
+                            this.databaseListAccess.setDefaultListKeys(databaseListAccessObj.getDefaultListKeys());
+                        }
+                        if (databaseListAccessObj.getUpcomingListKeys() != null) {
+                            this.databaseListAccess.setUpcomingListKeys(databaseListAccessObj.getUpcomingListKeys());
+                        }
+                    }
 
-            if (this.databaseListAccess.getDefaultListKeys() == null) {
-                this.databaseListAccess.setDefaultListKeys(new ArrayList<>());
+                    if (this.databaseListAccess.getDefaultListKeys() == null) {
+                        this.databaseListAccess.setDefaultListKeys(new ArrayList<>());
 
-                this.databaseListAccess.getDefaultListKeys().add(new CustomMap("default-1", "Default List"));
-                this.data.writeListKeys(databaseListAccess, databaseListAccess.getMainKey());
-            }
+                        this.databaseListAccess.getDefaultListKeys().add(new CustomMap("default-1", "Default List"));
+                        this.data.writeListKeys(databaseListAccess, databaseListAccess.getMainKey());
+                    }
 
-            if (this.databaseListAccess.getUpcomingListKeys() == null) {
-                this.databaseListAccess.setUpcomingListKeys(new ArrayList<>());
-
-                Log.i("test", "Testing");
-//                this.databaseListAccess.getDefaultListKeys().add(new CustomMap("default-1", "Default List"));
-//                this.data.writeListKeys(databaseListAccess, databaseListAccess.getMainKey());
-            }
-
+                    if (this.databaseListAccess.getUpcomingListKeys() == null) {
+                        this.databaseListAccess.setUpcomingListKeys(new ArrayList<>());
+                    }
             this.listKey = this.databaseListAccess.getMainKey();
 
             this.upcomingKeys = this.databaseListAccess.getUpcomingListKeys();
@@ -78,17 +88,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }, databaseListAccess.getMainKey());
+    }
 
-
-
-        FloatingActionButton fab = findViewById(R.id.fabAddUpcomingList);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View view) {
-               addUpcomingList();
-            }
-        });
+    @Override
+    protected void onResume(){
+        super.onResume();
+        readDataFromFirebase();
 
     }
 
@@ -119,17 +124,16 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditDefaultListActivity.class);
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
 
-
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+        //startActivity(intent);
 
     }
 
     public void clickViewDefaultLists () {
         Intent intent = new Intent(this, ViewDefaultListsActivity.class);
-        intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
-        intent.putExtra("listKey", this.databaseListAccess.getMainKey());
         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
+        //startActivityForResult(intent, 2);
         startActivity(intent);
 
     }
@@ -223,7 +227,6 @@ public class MainActivity extends AppCompatActivity {
         //onActivityResult
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
-
             if (resultCode == RESULT_OK) {
                 this.databaseListAccess = (DatabaseListAccess) data.getSerializableExtra("databaseListAccess");
                 this.listKey = this.databaseListAccess.getMainKey();

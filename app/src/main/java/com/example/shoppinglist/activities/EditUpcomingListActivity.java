@@ -3,14 +3,11 @@ package com.example.shoppinglist.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppinglist.CustomListViewAdapter;
@@ -72,15 +69,9 @@ public class EditUpcomingListActivity extends AppCompatActivity {
             displayUpcomingList(this.upcomingList);
         }, listKey);
 
-        // calling the action bar
-        ActionBar actionBar = getSupportActionBar();
-
-        // showing the back button in action bar
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-
     }
 
+/*
     //TODO: Need to edit the code below to put the appropriate menu Item on this Activity
 
     //Handles the Menu item
@@ -101,6 +92,10 @@ public class EditUpcomingListActivity extends AppCompatActivity {
         }
 
     }
+
+ */
+
+
 
 
 /*
@@ -124,7 +119,6 @@ public class EditUpcomingListActivity extends AppCompatActivity {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("databaseListAccess", this.databaseListAccess);
         setResult(RESULT_OK,returnIntent);
-        this.finish();
     }
 
     public void displayUpcomingList(ShoppingList list) {
