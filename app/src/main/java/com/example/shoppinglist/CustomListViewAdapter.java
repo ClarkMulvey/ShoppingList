@@ -12,6 +12,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+/**
+ * This class creates the adapter used by a ListView to display a Shopping List
+ *
+ * This creates the adapter used to display Default Shopping Lists including a Textview for the
+ * quantity, a Textview for the Item name, and a button to delete the item from the Shopping list
+ *
+ * @author Team-06
+ * @version 2021.0317
+ * @since 1.0
+ */
 public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<ShoppingListItem> list;
     private Context context;

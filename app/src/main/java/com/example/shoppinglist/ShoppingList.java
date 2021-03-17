@@ -3,6 +3,16 @@ package com.example.shoppinglist;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * This class defines the elements of a shopping list
+ *
+ * Definition of the elements of a shopping list which includes an array of ShoppingListItems
+ *
+ * @author Team-06
+ * @version 2021.0317
+ * @since 1.0
+ */
+
 public class ShoppingList implements Serializable {
     private ArrayList<ShoppingListItem> items;
 

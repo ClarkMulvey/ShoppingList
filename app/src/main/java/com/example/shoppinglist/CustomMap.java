@@ -2,6 +2,16 @@ package com.example.shoppinglist;
 
 import java.io.Serializable;
 
+/**
+ * Map to store the Shopping list Key and Name
+ *
+ * This class creates a Map for the Key/Name combination to be used with Default and Upcoming
+ * shopping lists.
+ *
+ * @author Team-06
+ * @version 2021.0317
+ * @since 1.0
+ */
 public class CustomMap implements Serializable {
 
     private String key;
