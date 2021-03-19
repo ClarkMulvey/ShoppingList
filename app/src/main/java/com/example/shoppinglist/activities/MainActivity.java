@@ -49,11 +49,20 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-               addUpcomingList();
+                addUpcomingList();
+                //test();
+
             }
         });
 
     }
+
+    /*
+    public void test() {
+        Intent intent = new Intent(this, ShoppingSessionActivity.class);
+
+        startActivity(intent);
+    }*/
 
     public void readDataFromFirebase(){
         //Read the data from Firebase

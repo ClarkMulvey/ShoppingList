@@ -11,16 +11,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingList">
         <activity android:name=".activities.ViewDefaultListsActivity"/>
-        <activity android:name=".activities.EditDefaultListActivity"/>
-        <activity android:name=".activities.CreateUpcomingTripListActivity"/>
+        <activity android:name=".activities.EditDefaultListActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".activities.CreateUpcomingTripListActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.EditUpcomingListActivity"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity"
+            android:windowSoftInputMode="adjustPan">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".activities.MainActivity" />
     </activity>
-        <activity android:name=".activities.ShoppingSessionActivity"/>
+        <activity android:name=".activities.ShoppingSessionActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activities.StartShoppingActivity"/>
         <activity android:name=".activities.ViewUpcomingListsActivity"/>
         <activity android:name=".activities.MainActivity">
