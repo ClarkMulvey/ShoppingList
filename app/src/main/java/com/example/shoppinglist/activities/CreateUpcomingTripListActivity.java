@@ -91,9 +91,11 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
                     defaultList = defaultListItem;
                     Log.i("reading Firebase", "Trying to read in a lamda");
                     defaultList.getItems().forEach(item -> {
-                        this.newShoppingList.addItem(item);
-                        //TODO: We shouldn't be doing this here, but there is a timing thing I
-                        // can't figure out
+                        //TODO: See if we can check to see if this item is already in the list and
+                        // if it is don't add it - This might work, confirm once we add the edit functionality
+                        if (!this.newShoppingList.getItems().contains(item)) {
+                            this.newShoppingList.addItem(item);
+                        }
                         this.data.writeData(this.newShoppingList,this.listKey);
                     });
                 }, defaultListKey);
@@ -114,19 +116,6 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-
-    //TODO: I even tried to use the onPause, but that only worked part of the time.
-/*
-    @Override
-    public void onPause() {
-        super.onPause();
-        this.data.writeData(this.newShoppingList,this.listKey);
-    }
-
- */
-
-
 
     public void displayDefaultLists(ArrayList<CustomMap> defaultKeys) {
         //instantiate custom adapter
