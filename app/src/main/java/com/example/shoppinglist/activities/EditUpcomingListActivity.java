@@ -1,6 +1,7 @@
 package com.example.shoppinglist.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppinglist.CustomListViewAdapter;
@@ -17,6 +19,7 @@ import com.example.shoppinglist.DatabaseListAccess;
 import com.example.shoppinglist.R;
 import com.example.shoppinglist.ShoppingList;
 import com.example.shoppinglist.ShoppingListItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -69,6 +72,16 @@ public class EditUpcomingListActivity extends AppCompatActivity {
             displayUpcomingList(this.upcomingList);
         }, listKey);
 
+        FloatingActionButton fab = findViewById(R.id.upcomingListTripFab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View view) {
+                addItemToUpcomingList(view);
+                //test();
+
+            }
+        });
     }
 
 /*
