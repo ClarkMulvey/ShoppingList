@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppinglist.CustomDefaultListNamesListViewAdapter;
@@ -43,6 +47,12 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_upcoming_trip_list);
         setTitle("Upcoming trip");
+
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         this.databaseListAccess = (DatabaseListAccess) getIntent().getSerializableExtra("databaseListAccess");
         this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
@@ -129,5 +139,30 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
         //instantiate custom adapter
         CustomDefaultListNamesListViewAdapter adapter = new CustomDefaultListNamesListViewAdapter(defaultKeys, this, this.data, this.databaseListAccess, listKey, this.defaultListChecked);
         this.listView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.deleteNewlyCreatedListAndGoBack();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    protected void deleteNewlyCreatedListAndGoBack() {
+        String shoppingListKey = databaseListAccess.getUpcomingListKeys().get(arrayPosition).getKey();
+        databaseListAccess.getUpcomingListKeys().remove(arrayPosition);
+        data.writeListKeys(databaseListAccess, listKey);
+        ShoppingList deleteShoppingList = new ShoppingList();
+        data.writeData(deleteShoppingList, shoppingListKey);
+
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("databaseListAccess", this.databaseListAccess);
+        setResult(RESULT_OK,returnIntent);
+        this.finish();
+
     }
 }

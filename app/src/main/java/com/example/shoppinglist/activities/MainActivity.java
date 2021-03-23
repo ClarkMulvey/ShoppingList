@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /*
     public void clickViewEditDefaultList (View view){
         Intent intent = new Intent(this, EditDefaultListActivity.class);
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         //startActivity(intent);
 
     }
+    */
 
     public void clickViewDefaultLists () {
         Intent intent = new Intent(this, ViewDefaultListsActivity.class);
@@ -185,7 +187,8 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
-        startActivity(intent);
+        startActivityForResult(intent, 2);
+        //startActivity(intent);
 
     }
 
@@ -237,6 +240,17 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
+                this.databaseListAccess = (DatabaseListAccess) data.getSerializableExtra("databaseListAccess");
+                this.listKey = this.databaseListAccess.getMainKey();
+                this.upcomingKeys = this.databaseListAccess.getUpcomingListKeys();
+                displayUpcomingList(this.upcomingKeys);
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Do nothing?
+            }
+        } else if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "We should now delete the newly created list", Toast.LENGTH_LONG).show();
                 this.databaseListAccess = (DatabaseListAccess) data.getSerializableExtra("databaseListAccess");
                 this.listKey = this.databaseListAccess.getMainKey();
                 this.upcomingKeys = this.databaseListAccess.getUpcomingListKeys();
