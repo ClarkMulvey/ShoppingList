@@ -1,6 +1,8 @@
 package com.example.shoppinglist;
 
-public class ShoppingListItem {
+import java.io.Serializable;
+
+public class ShoppingListItem implements Serializable {
     private String name;
     private int quantity;
 

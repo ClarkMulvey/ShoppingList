@@ -35,6 +35,7 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
     private Integer position;
     private ShoppingList defaultList;
     private ShoppingList newShoppingList;
+    private ShoppingList upcomingList;
 
 
     @Override
@@ -62,9 +63,13 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
 
         this.listName.setText(this.listInfo.getValue());
 
-        //Creating a new ShoppingList in order to store all the items from the selected default
-        //lists
-        this.newShoppingList = new ShoppingList();
+        //Check to see if the ShoppingList has any items
+        this.newShoppingList = (ShoppingList) getIntent().getSerializableExtra("upcomingListItems");
+        if (this.newShoppingList == null) {
+            //Creating a new ShoppingList in order to store all the items from the selected default
+            //lists
+            this.newShoppingList = new ShoppingList();
+        }
 
         //instantiate custom adapter
         displayDefaultLists(this.defaultKeys);
@@ -75,8 +80,6 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
     public void populateUpcomingList (View view){
 
         Log.i("CreateUpcoming", "After Submit button is Pushed.  About to populate the upcoming List!");
-        //TODO: this.defaultListChecked is an Boolean array of the positions of the default lists,
-        // we just need to iterate through that and add the contents of the checked default lists to the upcoming list
 
         ArrayList<CustomMap> defaultLists = this.databaseListAccess.getDefaultListKeys();
         this.position = 0;
@@ -91,8 +94,12 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
                     defaultList = defaultListItem;
                     Log.i("reading Firebase", "Trying to read in a lamda");
                     defaultList.getItems().forEach(item -> {
-                        //TODO: See if we can check to see if this item is already in the list and
-                        // if it is don't add it - This might work, confirm once we add the edit functionality
+
+                        //TODO: This doesn't work to check if the item already exists.  It is failing
+                        // since it is looking for the object memory reference, which wouldn't be the
+                        // same, we would need to be checking the values.  There are some posts
+                        // about using stream for this
+
                         if (!this.newShoppingList.getItems().contains(item)) {
                             this.newShoppingList.addItem(item);
                         }

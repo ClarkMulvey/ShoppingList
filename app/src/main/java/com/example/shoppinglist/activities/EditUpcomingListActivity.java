@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,7 +38,7 @@ public class EditUpcomingListActivity extends AppCompatActivity {
     private String listKey;
     private EditText listName;
     private DatabaseListAccess databaseListAccess;
-    private ArrayList<CustomMap> upComingKeys;
+    private ArrayList<CustomMap> upcomingKeys;
     private CustomMap listInfo;
     private Integer arrayPosition;
 
@@ -44,7 +48,7 @@ public class EditUpcomingListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_upcoming_trip);
 
         this.databaseListAccess = (DatabaseListAccess) getIntent().getSerializableExtra("databaseListAccess");
-        this.upComingKeys = this.databaseListAccess.getUpcomingListKeys();
+        this.upcomingKeys = this.databaseListAccess.getUpcomingListKeys();
 
         // instantiate data handler object
         this.data = new DataHandler();
@@ -84,21 +88,14 @@ public class EditUpcomingListActivity extends AppCompatActivity {
         });
     }
 
-/*
     //TODO: Need to edit the code below to put the appropriate menu Item on this Activity
 
     //Handles the Menu item
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
-            case R.id.save_list:
-                try {
-                    data.writeData(this.upcomingList, this.listKey);
-                    Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
-                    Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
-                    Log.e("EditDefaultListAct",e.toString());
-                }
+            case R.id.add_default:
+                addDefaultListToTrip();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -106,21 +103,25 @@ public class EditUpcomingListActivity extends AppCompatActivity {
 
     }
 
- */
-
-
-
-
-/*
     //Puts the menu item on the upper bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.save_menu, menu);
+        inflater.inflate(R.menu.add_default, menu);
         return true;
     }
 
-*/
+    public void addDefaultListToTrip() {
+        Intent intent = new Intent(this, CreateUpcomingTripListActivity.class);
+        intent.putExtra("listKey", this.upcomingKeys.get(this.arrayPosition).getKey());
+        intent.putExtra("arrayPosition", this.arrayPosition);
+        intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
+        intent.putExtra("databaseListAccess", this.databaseListAccess);
+        intent.putExtra("upcomingListItems", this.upcomingList);
+
+        startActivity(intent);
+        //startActivityForResult(intent, 2);
+    }
 
 
     @Override

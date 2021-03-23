@@ -40,5 +40,4 @@ public class DatabaseListAccess implements Serializable {
     public void setUpcomingListKeys(ArrayList<CustomMap> upcomingListKeys) {
         this.upcomingListKeys = upcomingListKeys;
     }
-
 }

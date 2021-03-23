@@ -21,4 +21,5 @@
     <string name="default_lists">Default Lists</string>
     <string name="list_name_edit_text">Enter List Name</string>
     <string name="upcomingListName">Enter List Name ex. DD/MM</string>
+    <string name="menu_add_default">Add Default</string>
 </resources>
