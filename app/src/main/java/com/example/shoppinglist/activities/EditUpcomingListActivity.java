@@ -46,7 +46,7 @@ public class EditUpcomingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_upcoming_trip);
-
+        setTitle("Edit list");
         this.databaseListAccess = (DatabaseListAccess) getIntent().getSerializableExtra("databaseListAccess");
         this.upcomingKeys = this.databaseListAccess.getUpcomingListKeys();
 

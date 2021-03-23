@@ -36,7 +36,7 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_default_lists);
-
+        setTitle("Default lists");
         // instantiate the defaultKeys list
         this.databaseListAccess = (DatabaseListAccess) getIntent().getSerializableExtra("databaseListAccess");
 

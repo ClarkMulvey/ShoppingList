@@ -42,6 +42,7 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_upcoming_trip_list);
+        setTitle("Upcoming trip");
 
         this.databaseListAccess = (DatabaseListAccess) getIntent().getSerializableExtra("databaseListAccess");
         this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
