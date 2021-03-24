@@ -27,7 +27,6 @@
         <activity android:name=".activities.ShoppingSessionActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activities.StartShoppingActivity"/>
-        <activity android:name=".activities.ViewUpcomingListsActivity"/>
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

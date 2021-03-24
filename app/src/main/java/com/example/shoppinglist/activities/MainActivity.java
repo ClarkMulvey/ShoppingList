@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         this.databaseListAccess = new DatabaseListAccess();
 
+        setTitle("Upcoming Trips");
+
         readDataFromFirebase();
 
         FloatingActionButton fab = findViewById(R.id.fabAddUpcomingList);
@@ -154,11 +156,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void clickViewUpcomingList (View view){
-        Intent intent = new Intent(this, ViewUpcomingListsActivity.class);
-        startActivity(intent);
-    }
-
     public void clickCreateUpcomingTripList (View view){
         Intent intent = new Intent(this, CreateUpcomingTripListActivity.class);
         startActivity(intent);
@@ -250,7 +247,6 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "We should now delete the newly created list", Toast.LENGTH_LONG).show();
                 this.databaseListAccess = (DatabaseListAccess) data.getSerializableExtra("databaseListAccess");
                 this.listKey = this.databaseListAccess.getMainKey();
                 this.upcomingKeys = this.databaseListAccess.getUpcomingListKeys();

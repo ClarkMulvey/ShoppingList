@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -153,11 +152,9 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
     }
 
     protected void deleteNewlyCreatedListAndGoBack() {
-        String shoppingListKey = databaseListAccess.getUpcomingListKeys().get(arrayPosition).getKey();
-        databaseListAccess.getUpcomingListKeys().remove(arrayPosition);
-        data.writeListKeys(databaseListAccess, listKey);
-        ShoppingList deleteShoppingList = new ShoppingList();
-        data.writeData(deleteShoppingList, shoppingListKey);
+        this.databaseListAccess.getUpcomingListKeys().remove(this.databaseListAccess.getUpcomingListKeys().size() - 1);
+        this.data.writeListKeys(this.databaseListAccess, this.databaseListAccess.getMainKey());
+
 
         Intent returnIntent = new Intent();
         returnIntent.putExtra("databaseListAccess", this.databaseListAccess);
