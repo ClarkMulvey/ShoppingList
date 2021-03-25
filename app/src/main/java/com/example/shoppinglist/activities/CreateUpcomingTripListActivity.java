@@ -45,7 +45,7 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_upcoming_trip_list);
-        setTitle("Upcoming trip");
+        setTitle("Upcoming trip list");
 
         // calling the action bar
         ActionBar actionBar = getSupportActionBar();

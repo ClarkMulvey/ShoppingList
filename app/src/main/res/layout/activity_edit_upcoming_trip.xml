@@ -10,21 +10,24 @@
         android:id="@+id/ItemName"
         android:layout_width="150dp"
         android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
         android:ems="10"
         android:hint="@string/add_item_to_list"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ItemQuantity"
         app:layout_constraintTop_toBottomOf="@+id/listView"
-        app:layout_constraintVertical_bias="0.507" />
+        app:layout_constraintVertical_bias="0.736" />
 
     <EditText
         android:id="@+id/upcomingListName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/list_name_edit_text"
         android:inputType="textPersonName"
@@ -32,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <EditText
         android:id="@+id/ItemQuantity"
@@ -43,22 +46,24 @@
         android:ems="12"
         android:hint="@string/specify_item_quantity"
         android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@+id/ItemName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ItemName"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/ItemName"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="330dp"
-        android:layout_height="376dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="323dp"
+        android:layout_height="379dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/upcomingListName"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.153" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/upcomingListTripFab"
@@ -68,14 +73,15 @@
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginBottom="64dp"
         android:clickable="true"
         app:backgroundTint="@color/purple_500"
         app:layout_constraintBottom_toBottomOf="@+id/ItemName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.445"
+        app:layout_constraintHorizontal_bias="0.835"
         app:layout_constraintStart_toEndOf="@+id/ItemName"
         app:layout_constraintTop_toTopOf="@+id/ItemName"
-        app:layout_constraintVertical_bias="0.466"
+        app:layout_constraintVertical_bias="0.367"
         app:srcCompat="@android:drawable/ic_input_add"
         app:tint="@color/white" />
 
