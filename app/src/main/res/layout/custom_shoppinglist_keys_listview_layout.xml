@@ -31,4 +31,18 @@
         android:outlineProvider="none"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_toStartOf="@+id/delete_btn"
+        android:layout_toLeftOf="@+id/delete_btn"
+        android:clickable="true"
+        app:backgroundTint="@android:color/transparent"
+        android:outlineProvider="none"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
 </RelativeLayout>

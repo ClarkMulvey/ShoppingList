@@ -20,6 +20,7 @@ import com.example.shoppinglist.CustomShoppingListKeysListViewAdapter;
 import com.example.shoppinglist.DataHandler;
 import com.example.shoppinglist.DatabaseListAccess;
 import com.example.shoppinglist.R;
+import com.example.shoppinglist.interfaces.CustomButtonListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -122,8 +123,17 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
     }
 
     public void displayDefaultList(ArrayList<CustomMap> defaultKeys) {
+
+        CustomButtonListener customListener = new CustomButtonListener() {
+            @Override
+            public void clickEditList(Integer position) {
+
+                clickViewEditDefaultList(position);
+
+            }
+        };
         //instantiate custom adapter
-        CustomShoppingListKeysListViewAdapter adapter = new CustomShoppingListKeysListViewAdapter(defaultKeys, this, this.data, this.databaseListAccess, listKey);
+        CustomShoppingListKeysListViewAdapter adapter = new CustomShoppingListKeysListViewAdapter(defaultKeys, this, this.data, this.databaseListAccess, listKey,customListener);
         this.listView.setAdapter(adapter);
 
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.example.shoppinglist.interfaces.CustomButtonListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -19,14 +20,16 @@ public class CustomShoppingListKeysListViewAdapter extends BaseAdapter implement
     private DatabaseListAccess databaseListAccess;
     private ShoppingList shoppingListDefault;
     private String listKey;
+    private CustomButtonListener customListener;
 
 
-    public CustomShoppingListKeysListViewAdapter(ArrayList<CustomMap> list, Context context, DataHandler data, DatabaseListAccess databaseListAccess, String listKey) {
+    public CustomShoppingListKeysListViewAdapter(ArrayList<CustomMap> list, Context context, DataHandler data, DatabaseListAccess databaseListAccess, String listKey, CustomButtonListener customListener) {
         this.list = list;
         this.context = context;
         this.data = data;
         this.listKey = listKey;
         this.databaseListAccess = databaseListAccess;
+        this.customListener = customListener;
     }
 
     @Override
@@ -59,6 +62,7 @@ public class CustomShoppingListKeysListViewAdapter extends BaseAdapter implement
         TextView listItemName = (TextView)view.findViewById(R.id.list_name);
         listItemName.setText(list.get(position).getValue());
 
+
         //Handle buttons and add onClickListeners
         FloatingActionButton deleteBtn = (FloatingActionButton) view.findViewById(R.id.delete_btn);
 
@@ -74,7 +78,20 @@ public class CustomShoppingListKeysListViewAdapter extends BaseAdapter implement
             }
         });
 
+        //Handle buttons and add onClickListeners
+        FloatingActionButton editBtn = (FloatingActionButton) view.findViewById(R.id.edit_button);
+
+        editBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if (customListener != null) {
+                    customListener.clickEditList(position);
+                }
+            }
+        });
 
         return view;
     }
+
+
 }

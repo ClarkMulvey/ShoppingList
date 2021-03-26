@@ -21,6 +21,7 @@ import com.example.shoppinglist.CustomShoppingListKeysListViewAdapter;
 import com.example.shoppinglist.DataHandler;
 import com.example.shoppinglist.DatabaseListAccess;
 import com.example.shoppinglist.R;
+import com.example.shoppinglist.interfaces.CustomButtonListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -131,17 +132,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /*
-    public void clickViewEditDefaultList (View view){
-        Intent intent = new Intent(this, EditDefaultListActivity.class);
-        intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
-
-        startActivityForResult(intent, 1);
-        //startActivity(intent);
-
-    }
-    */
-
     public void clickViewDefaultLists () {
         Intent intent = new Intent(this, ViewDefaultListsActivity.class);
         intent.putExtra("databaseListAccess", this.databaseListAccess);
@@ -153,11 +143,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickStartShopping (View view){
         Intent intent = new Intent(this, StartShoppingActivity.class);
-        startActivity(intent);
-    }
-
-    public void clickCreateUpcomingTripList (View view){
-        Intent intent = new Intent(this, CreateUpcomingTripListActivity.class);
         startActivity(intent);
     }
 
@@ -204,9 +189,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayUpcomingList(ArrayList<CustomMap> defaultKeys) {
+        CustomButtonListener customListener = new CustomButtonListener() {
+            @Override
+            public void clickEditList(Integer position) {
+                clickEditUpcomingList(position);
+            }
+        };
+
         //instantiate custom adapter
-        CustomShoppingListKeysListViewAdapter adapter = new CustomShoppingListKeysListViewAdapter(defaultKeys, this, this.data, this.databaseListAccess, listKey);
+        CustomShoppingListKeysListViewAdapter adapter = new CustomShoppingListKeysListViewAdapter(defaultKeys, this, this.data, this.databaseListAccess, listKey, customListener);
         this.listView.setAdapter(adapter);
+
+
 
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
@@ -218,9 +212,10 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+
     }
 
-    public void clickEditUpcomingList (Integer position) {
+    public void clickEditUpcomingList(Integer position) {
         Intent intent = new Intent(this, EditUpcomingListActivity.class);
         intent.putExtra("listKey", this.databaseListAccess.getUpcomingListKeys().get(position).getKey());
         intent.putExtra("arrayPosition", position);
@@ -257,4 +252,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }

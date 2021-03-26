@@ -66,6 +66,11 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
         TextView listItemName = (TextView)view.findViewById(R.id.list_item_name);
         listItemName.setText(list.get(position).getName());
 
+        //TODO: Remove this from the CustomListViewAdpater this will be for the Shopping Trip
+        if (list.get(position).isCompleted()) {
+            // do the strike through and check the checkbox
+        }
+
         //Handle TextView and quantity from shoppingListItem
         TextView listItemQuantity = (TextView)view.findViewById(R.id.list_item_quantity);
         listItemQuantity.setText(String.valueOf(list.get(position).getQuantity()));
