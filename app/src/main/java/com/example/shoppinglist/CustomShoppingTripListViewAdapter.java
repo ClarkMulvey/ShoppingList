@@ -1,10 +1,12 @@
 package com.example.shoppinglist;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -22,14 +24,14 @@ import java.util.ArrayList;
  * @version 2021.0317
  * @since 1.0
  */
-public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
+public class CustomShoppingTripListViewAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<ShoppingListItem> list;
     private Context context;
     private DataHandler data;
     private ShoppingList shoppingListDefault;
     String listKey;
 
-    public CustomListViewAdapter(ShoppingList list, Context context, DataHandler data, String listKey) {
+    public CustomShoppingTripListViewAdapter(ShoppingList list, Context context, DataHandler data, String listKey) {
         this.list = list.getItems();
         this.shoppingListDefault = list;
         this.context = context;
@@ -59,7 +61,7 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.custom_listview_layout, null);
+            view = inflater.inflate(R.layout.custom_shopping_trip_listview_layout, null);
         }
 
         //Handle TextView and name from shoppingListItem
@@ -71,6 +73,34 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
         //Handle TextView and quantity from shoppingListItem
         TextView listItemQuantity = (TextView)view.findViewById(R.id.list_item_quantity);
         listItemQuantity.setText(String.valueOf(list.get(position).getQuantity()));
+
+        //Handle the CheckBox for whether an item is complete
+        CheckBox listItemComplete = (CheckBox) view.findViewById(R.id.itemComplete);
+
+        listItemComplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (list.get(position).isCompleted()) {
+                    list.get(position).setCompleted(false);
+                    listItemName.setPaintFlags(listItemName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                    listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                } else {
+                    list.get(position).setCompleted(true);
+                    listItemName.setPaintFlags(listItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }
+                data.writeData(shoppingListDefault, listKey);
+            }
+        });
+
+
+        if (list.get(position).isCompleted()) {
+            listItemName.setPaintFlags(listItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            listItemComplete.setChecked(true);
+        } else {
+            listItemComplete.setChecked(false);
+        }
 
 
         //Handle buttons and add onClickListeners

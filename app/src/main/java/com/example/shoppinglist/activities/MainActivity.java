@@ -170,8 +170,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
         startActivityForResult(intent, 2);
-        //startActivity(intent);
-
     }
 
 

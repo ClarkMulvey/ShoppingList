@@ -1,10 +1,12 @@
 package com.example.shoppinglist;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -22,14 +24,14 @@ import java.util.ArrayList;
  * @version 2021.0317
  * @since 1.0
  */
-public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
+public class CustomUpcomingListViewAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<ShoppingListItem> list;
     private Context context;
     private DataHandler data;
     private ShoppingList shoppingListDefault;
     String listKey;
 
-    public CustomListViewAdapter(ShoppingList list, Context context, DataHandler data, String listKey) {
+    public CustomUpcomingListViewAdapter(ShoppingList list, Context context, DataHandler data, String listKey) {
         this.list = list.getItems();
         this.shoppingListDefault = list;
         this.context = context;
@@ -72,6 +74,14 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
         TextView listItemQuantity = (TextView)view.findViewById(R.id.list_item_quantity);
         listItemQuantity.setText(String.valueOf(list.get(position).getQuantity()));
 
+
+        CheckBox listItemComplete = (CheckBox)view.findViewById(R.id.itemComplete);
+
+
+        if (list.get(position).isCompleted()) {
+            listItemName.setPaintFlags(listItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
 
         //Handle buttons and add onClickListeners
         FloatingActionButton deleteBtn = (FloatingActionButton) view.findViewById(R.id.delete_btn);

@@ -79,6 +79,7 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
                 this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
                 displayDefaultList(this.defaultKeys);
             }
+            //TODO: Should we remove this, it's not doing anything.
             if (resultCode == RESULT_CANCELED) {
                 //Do nothing?
             }

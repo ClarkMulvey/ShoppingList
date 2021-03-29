@@ -99,6 +99,8 @@ public class EditDefaultListActivity extends AppCompatActivity {
     }
 
 
+    //TODO: We should delete this menu item now, we no longer need this to save, the save happens
+    // automatically now
     //Handles the Menu item
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
@@ -121,7 +123,8 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
     }
 
-
+    //TODO: We should delete this menu item now, we no longer need this to save, the save happens
+    // automatically now
     //Puts the menu item on the upper bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -16,8 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.shoppinglist.CustomListViewAdapter;
 import com.example.shoppinglist.CustomMap;
+import com.example.shoppinglist.CustomShoppingTripListViewAdapter;
 import com.example.shoppinglist.DataHandler;
 import com.example.shoppinglist.DatabaseListAccess;
 import com.example.shoppinglist.R;
@@ -137,7 +137,7 @@ public class EditUpcomingListActivity extends AppCompatActivity {
 
     public void displayUpcomingList(ShoppingList list) {
         //instantiate custom adapter
-        CustomListViewAdapter adapter = new CustomListViewAdapter(list, this, this.data, this.listKey);
+        CustomShoppingTripListViewAdapter adapter = new CustomShoppingTripListViewAdapter(list, this, this.data, this.listKey);
         this.listView.setAdapter(adapter);
     }
 
