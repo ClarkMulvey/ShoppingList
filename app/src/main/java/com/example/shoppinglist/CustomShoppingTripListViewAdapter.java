@@ -83,10 +83,16 @@ public class CustomShoppingTripListViewAdapter extends BaseAdapter implements Li
             public void onClick(View v) {
                 if (list.get(position).isCompleted()) {
                     list.get(position).setCompleted(false);
-                    ((StartShoppingActivity)context).displayUpcomingList(shoppingList);
+                    listItemName.setPaintFlags(listItemName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                    listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                    //TODO: Remove this if everyone agrees it is working
+                   // ((StartShoppingActivity)context).displayUpcomingList(shoppingList);
                 } else {
                     list.get(position).setCompleted(true);
-                    ((StartShoppingActivity)context).displayUpcomingList(shoppingList);
+                    listItemName.setPaintFlags(listItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    //TODO: Remove this if everyone agrees it is working
+                    //((StartShoppingActivity)context).displayUpcomingList(shoppingList);
                 }
                 data.writeData(shoppingList, listKey);
             }
