@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class ShoppingListItem implements Serializable {
     private String name;
-    private int quantity;
+    private Integer quantity;
     private boolean completed;
 
     public boolean isCompleted() {
@@ -15,7 +15,7 @@ public class ShoppingListItem implements Serializable {
         this.completed = completed;
     }
 
-    public ShoppingListItem(String name, int quantity) {
+    public ShoppingListItem(String name, Integer quantity) {
         this.name = name;
         this.quantity = quantity;
         this.completed = false;
@@ -31,11 +31,11 @@ public class ShoppingListItem implements Serializable {
         return this.name;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return this.quantity;
     }
 }

@@ -22,6 +22,7 @@ import com.example.shoppinglist.R;
 import com.example.shoppinglist.ShoppingList;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class CreateUpcomingTripListActivity extends AppCompatActivity {
 
@@ -113,11 +114,33 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
                             // same, we would need to be checking the values.  There are some posts
                             // about using stream for this
 
-                            if (!this.newShoppingList.getItems().contains(item)) {
+                            AtomicReference<Boolean> found = new AtomicReference<>(false);
+                            this.newShoppingList.getItems().forEach(checkItem -> {
+                                    if (item.getName().equals(checkItem.getName()) && item.getQuantity().equals(checkItem.getQuantity())) {
+                                        found.set(true);
+                                    }
+                           });
+                            if (!found.get()) {
                                 this.newShoppingList.addItem(item);
                             }
-                            this.data.writeData(this.newShoppingList, this.listKey);
                         });
+                    }
+                    this.data.writeData(this.newShoppingList, this.listKey);
+                    //Set the intent destination based on where it came from
+                    if (this.originActivity.equals("EditUpcomingListActivity") || this.originActivity.equals("MainActivity") ) {
+                        Intent intent = new Intent(this, EditUpcomingListActivity.class);
+                        intent.putExtra("listKey", this.listKey);
+                        intent.putExtra("arrayPosition", arrayPosition);
+                        intent.putExtra("databaseListAccess", this.databaseListAccess);
+
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(this, StartShoppingActivity.class);
+                        intent.putExtra("listKey", this.listKey);
+                        intent.putExtra("arrayPosition", arrayPosition);
+                        intent.putExtra("databaseListAccess", this.databaseListAccess);
+
+                        startActivity(intent);
                     }
                 }, defaultListKey);
 
@@ -125,26 +148,10 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
             this.position += 1;
         });
 
+
         // Save the Upcoming List Name
         this.databaseListAccess.getUpcomingListKeys().get(this.arrayPosition).setValue(this.listName.getText().toString());
         this.data.writeListKeys(this.databaseListAccess, this.databaseListAccess.getMainKey());
-
-        //Set the intent destination based on where it came from
-        if (this.originActivity.equals("EditUpcomingListActivity") || this.originActivity.equals("MainActivity") ) {
-            Intent intent = new Intent(this, EditUpcomingListActivity.class);
-            intent.putExtra("listKey", this.listKey);
-            intent.putExtra("arrayPosition", arrayPosition);
-            intent.putExtra("databaseListAccess", this.databaseListAccess);
-
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(this, StartShoppingActivity.class);
-            intent.putExtra("listKey", this.listKey);
-            intent.putExtra("arrayPosition", arrayPosition);
-            intent.putExtra("databaseListAccess", this.databaseListAccess);
-
-            startActivity(intent);
-        }
 
 
     }

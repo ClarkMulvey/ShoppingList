@@ -84,13 +84,9 @@ public class CustomShoppingTripListViewAdapter extends BaseAdapter implements Li
                 if (list.get(position).isCompleted()) {
                     list.get(position).setCompleted(false);
                     ((StartShoppingActivity)context).displayUpcomingList(shoppingList);
-                    //listItemName.setPaintFlags(listItemName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                    //listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                 } else {
                     list.get(position).setCompleted(true);
                     ((StartShoppingActivity)context).displayUpcomingList(shoppingList);
-                    //listItemName.setPaintFlags(listItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    //listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }
                 data.writeData(shoppingList, listKey);
             }
@@ -102,6 +98,8 @@ public class CustomShoppingTripListViewAdapter extends BaseAdapter implements Li
             listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             listItemComplete.setChecked(true);
         } else {
+            listItemName.setPaintFlags(listItemName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             listItemComplete.setChecked(false);
         }
 
@@ -114,9 +112,7 @@ public class CustomShoppingTripListViewAdapter extends BaseAdapter implements Li
             public void onClick(View v) {
                 list.remove(position);
                 data.writeData(shoppingList, listKey);
-                //notifyDataSetChanged();
                 ((StartShoppingActivity)context).displayUpcomingList(shoppingList);
-
             }
         });
 
