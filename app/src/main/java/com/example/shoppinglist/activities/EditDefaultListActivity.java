@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -105,15 +103,6 @@ public class EditDefaultListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
-            case R.id.save_list:
-                try {
-                    data.writeData(this.defaultList, this.listKey);
-                    Toast.makeText(this, "The shopping list has been saved.", Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
-                    Toast.makeText(this, "There was an error saving the shopping list.", Toast.LENGTH_LONG).show();
-                    Log.e("EditDefaultListAct",e.toString());
-                }
-                return true;
             case android.R.id.home:
                 this.onPause();
                 return true;
@@ -123,15 +112,6 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
     }
 
-    //TODO: We should delete this menu item now, we no longer need this to save, the save happens
-    // automatically now
-    //Puts the menu item on the upper bar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.save_menu, menu);
-        return true;
-    }
 
     @Override
     protected void onPause() {

@@ -39,6 +39,7 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
     private ShoppingList defaultList;
     private ShoppingList newShoppingList;
     private ShoppingList upcomingList;
+    private String originActivity;
 
 
     @Override
@@ -54,6 +55,7 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         this.databaseListAccess = (DatabaseListAccess) getIntent().getSerializableExtra("databaseListAccess");
+        this.originActivity = (String) getIntent().getStringExtra("origin");
         this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
 
         this.defaultListChecked = new ArrayList<>();
@@ -103,34 +105,47 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
                 data.readData(defaultListItem -> {
                     defaultList = defaultListItem;
                     Log.i("reading Firebase", "Trying to read in a lamda");
-                    defaultList.getItems().forEach(item -> {
+                    if (defaultList != null) {
+                        defaultList.getItems().forEach(item -> {
 
-                        //TODO: This doesn't work to check if the item already exists.  It is failing
-                        // since it is looking for the object memory reference, which wouldn't be the
-                        // same, we would need to be checking the values.  There are some posts
-                        // about using stream for this
+                            //TODO: This doesn't work to check if the item already exists.  It is failing
+                            // since it is looking for the object memory reference, which wouldn't be the
+                            // same, we would need to be checking the values.  There are some posts
+                            // about using stream for this
 
-                        if (!this.newShoppingList.getItems().contains(item)) {
-                            this.newShoppingList.addItem(item);
-                        }
-                        this.data.writeData(this.newShoppingList,this.listKey);
-                    });
+                            if (!this.newShoppingList.getItems().contains(item)) {
+                                this.newShoppingList.addItem(item);
+                            }
+                            this.data.writeData(this.newShoppingList, this.listKey);
+                        });
+                    }
                 }, defaultListKey);
 
             }
             this.position += 1;
         });
 
-        Intent intent = new Intent(this, EditUpcomingListActivity.class);
         // Save the Upcoming List Name
         this.databaseListAccess.getUpcomingListKeys().get(this.arrayPosition).setValue(this.listName.getText().toString());
         this.data.writeListKeys(this.databaseListAccess, this.databaseListAccess.getMainKey());
 
-        intent.putExtra("listKey", this.listKey);
-        intent.putExtra("arrayPosition", arrayPosition);
-        intent.putExtra("databaseListAccess", this.databaseListAccess);
+        //Set the intent destination based on where it came from
+        if (this.originActivity.equals("EditUpcomingListActivity") || this.originActivity.equals("MainActivity") ) {
+            Intent intent = new Intent(this, EditUpcomingListActivity.class);
+            intent.putExtra("listKey", this.listKey);
+            intent.putExtra("arrayPosition", arrayPosition);
+            intent.putExtra("databaseListAccess", this.databaseListAccess);
 
-        startActivity(intent);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, StartShoppingActivity.class);
+            intent.putExtra("listKey", this.listKey);
+            intent.putExtra("arrayPosition", arrayPosition);
+            intent.putExtra("databaseListAccess", this.databaseListAccess);
+
+            startActivity(intent);
+        }
+
 
     }
 
@@ -144,7 +159,14 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.deleteNewlyCreatedListAndGoBack();
+                if (this.originActivity.equals("MainActivity")) {
+                    this.deleteNewlyCreatedListAndGoBack();
+                } else {
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("databaseListAccess", this.databaseListAccess);
+                    setResult(RESULT_OK,returnIntent);
+                    this.finish();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -53,19 +53,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addUpcomingList();
-                //test();
-
             }
         });
 
     }
-
-    /*
-    public void test() {
-        Intent intent = new Intent(this, ShoppingSessionActivity.class);
-
-        startActivity(intent);
-    }*/
 
     public void readDataFromFirebase(){
         //Read the data from Firebase
@@ -141,9 +132,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void clickStartShopping (View view){
+    public void clickStartShopping (Integer position){
         Intent intent = new Intent(this, StartShoppingActivity.class);
-        startActivity(intent);
+        intent.putExtra("listKey", this.databaseListAccess.getUpcomingListKeys().get(position).getKey());
+        intent.putExtra("arrayPosition", position);
+        intent.putExtra("databaseListAccess", this.databaseListAccess);
+
+        startActivityForResult(intent, 1);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -168,11 +163,12 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("arrayPosition", position);
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
         intent.putExtra("databaseListAccess", this.databaseListAccess);
+        intent.putExtra("origin", "MainActivity");
 
         startActivityForResult(intent, 2);
     }
 
-
+/*
     public void clickViewEditUpcomingList(Integer position) {
 
         //TODO: This should really go to the start shopping activity for the specific list
@@ -185,6 +181,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+ */
 
     public void displayUpcomingList(ArrayList<CustomMap> defaultKeys) {
         CustomButtonListener customListener = new CustomButtonListener() {
@@ -205,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
                 //TODO: Need to implement this Method, and then uncomment this
-                clickEditUpcomingList(position);
+                clickStartShopping(position);
             }
 
         });
@@ -220,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
         startActivityForResult(intent, 1);
-        //startActivity(intent);
 
     }
 

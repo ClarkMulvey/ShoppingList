@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -73,9 +72,6 @@ public class CustomUpcomingListViewAdapter extends BaseAdapter implements ListAd
         //Handle TextView and quantity from shoppingListItem
         TextView listItemQuantity = (TextView)view.findViewById(R.id.list_item_quantity);
         listItemQuantity.setText(String.valueOf(list.get(position).getQuantity()));
-
-
-        CheckBox listItemComplete = (CheckBox)view.findViewById(R.id.itemComplete);
 
 
         if (list.get(position).isCompleted()) {

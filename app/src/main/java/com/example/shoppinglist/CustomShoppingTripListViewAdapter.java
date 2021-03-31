@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.example.shoppinglist.activities.StartShoppingActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -28,12 +29,12 @@ public class CustomShoppingTripListViewAdapter extends BaseAdapter implements Li
     private ArrayList<ShoppingListItem> list;
     private Context context;
     private DataHandler data;
-    private ShoppingList shoppingListDefault;
+    private ShoppingList shoppingList;
     String listKey;
 
     public CustomShoppingTripListViewAdapter(ShoppingList list, Context context, DataHandler data, String listKey) {
         this.list = list.getItems();
-        this.shoppingListDefault = list;
+        this.shoppingList = list;
         this.context = context;
         this.data = data;
         this.listKey = listKey;
@@ -82,14 +83,16 @@ public class CustomShoppingTripListViewAdapter extends BaseAdapter implements Li
             public void onClick(View v) {
                 if (list.get(position).isCompleted()) {
                     list.get(position).setCompleted(false);
-                    listItemName.setPaintFlags(listItemName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                    listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                    ((StartShoppingActivity)context).displayUpcomingList(shoppingList);
+                    //listItemName.setPaintFlags(listItemName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                    //listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                 } else {
                     list.get(position).setCompleted(true);
-                    listItemName.setPaintFlags(listItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    ((StartShoppingActivity)context).displayUpcomingList(shoppingList);
+                    //listItemName.setPaintFlags(listItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    //listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }
-                data.writeData(shoppingListDefault, listKey);
+                data.writeData(shoppingList, listKey);
             }
         });
 
@@ -110,8 +113,10 @@ public class CustomShoppingTripListViewAdapter extends BaseAdapter implements Li
             @Override
             public void onClick(View v) {
                 list.remove(position);
-                notifyDataSetChanged();
-                data.writeData(shoppingListDefault, listKey);
+                data.writeData(shoppingList, listKey);
+                //notifyDataSetChanged();
+                ((StartShoppingActivity)context).displayUpcomingList(shoppingList);
+
             }
         });
 

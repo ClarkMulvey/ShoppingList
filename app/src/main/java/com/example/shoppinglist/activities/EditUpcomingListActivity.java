@@ -17,7 +17,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppinglist.CustomMap;
-import com.example.shoppinglist.CustomShoppingTripListViewAdapter;
+import com.example.shoppinglist.CustomUpcomingListViewAdapter;
 import com.example.shoppinglist.DataHandler;
 import com.example.shoppinglist.DatabaseListAccess;
 import com.example.shoppinglist.R;
@@ -46,7 +46,7 @@ public class EditUpcomingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_upcoming_trip);
-        setTitle("Upcoming trips");
+        setTitle("Edit Upcoming Trip");
         this.databaseListAccess = (DatabaseListAccess) getIntent().getSerializableExtra("databaseListAccess");
         this.upcomingKeys = this.databaseListAccess.getUpcomingListKeys();
 
@@ -82,8 +82,6 @@ public class EditUpcomingListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addItemToUpcomingList(view);
-                //test();
-
             }
         });
     }
@@ -118,6 +116,7 @@ public class EditUpcomingListActivity extends AppCompatActivity {
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
         intent.putExtra("databaseListAccess", this.databaseListAccess);
         intent.putExtra("upcomingListItems", this.upcomingList);
+        intent.putExtra("origin", "EditUpcomingListActivity");
 
         startActivity(intent);
         //startActivityForResult(intent, 2);
@@ -137,7 +136,7 @@ public class EditUpcomingListActivity extends AppCompatActivity {
 
     public void displayUpcomingList(ShoppingList list) {
         //instantiate custom adapter
-        CustomShoppingTripListViewAdapter adapter = new CustomShoppingTripListViewAdapter(list, this, this.data, this.listKey);
+        CustomUpcomingListViewAdapter adapter = new CustomUpcomingListViewAdapter(list, this, this.data, this.listKey);
         this.listView.setAdapter(adapter);
     }
 
