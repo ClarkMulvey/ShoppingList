@@ -14,21 +14,6 @@ import static org.junit.Assert.*;
 public class ClassesUnitTest {
 
 
-    /*
-    @Test
-    public void testLocalStorage() {
-        // Create dataHandler object
-        DataHandler dataHandler = new DataHandler();
-        ShoppingList list = new ShoppingList("testDefault");
-        list.addItem(new ShoppingListItem("MtnDew", 10));
-
-        dataHandler.saveList(list);
-
-        assertEquals(list, dataHandler.loadList(list));
-    }
-
-     */
-
     @Test
     public void testCreatingShoppingListItem() {
         ShoppingListItem shoppingListItem = new ShoppingListItem("MtnDew",10);
@@ -87,22 +72,57 @@ public class ClassesUnitTest {
         assertEquals(shoppingListItem2.isCompleted(), testDefaultList.getItems().get(0).isCompleted());
     }
 
-
-
-    /*
-
     @Test
-    public void testDefaultListAddedToUpcomingShoppingTripListDoesntChangeDefaultList() {
-        // create default list
-
-        // create upcoming shopping trip list
-
-        // add something to upcoming shopping trip list
-
-        // compare upcoming to default to make sure they do not match
+    public void testCustomMapDefaultConstructor(){
+        //Create a new CustomMap
+        CustomMap customMap = new CustomMap();
+        //Add a Key
+        customMap.setKey("TestKey");
+        //Add a Value
+        customMap.setValue("TestValue");
+        //Compare the Key
+        assertEquals(customMap.getKey(), "TestKey");
+        //Compare the Value
+        assertEquals(customMap.getValue(), "TestValue");
     }
 
-     */
+    @Test
+    public void testCustomMapCustomConstructor(){
+        //Create a new CustomMap
+        CustomMap customMap = new CustomMap("TestKey", "TestValue");
+        //Compare the Key
+        assertEquals(customMap.getKey(), "TestKey");
+        //Compare the Value
+        assertEquals(customMap.getValue(), "TestValue");
+    }
+
+    @Test
+    public void testDatabaseListAccessDefaultConstructor(){
+        //Create a new DataBaseListAccess
+        DatabaseListAccess databaseListAccess = new DatabaseListAccess();
+        //Compare the mainKey
+        assertEquals(databaseListAccess.getMainKey(), "databaseAccessKeys");
+    }
+
+    @Test
+    public void testAddingUpcomingAndDefaultKeysInDatabaseListAccess() {
+        //Create Test CustomMap
+        CustomMap customMap = new CustomMap("TestKey", "TestValue");
+        //Create an ArrayList for the CustomMap
+        ArrayList<CustomMap> arrayList = new ArrayList<>();
+        arrayList.add(customMap);
+        //Create a new DataBaseListAccess
+        DatabaseListAccess databaseListAccess = new DatabaseListAccess();
+        //Add CustomMap to defaultKeys DataBaseListAccess
+        databaseListAccess.setDefaultListKeys(arrayList);
+        //Add CustomMap to upcomingKeys DataBaseListAccess
+        databaseListAccess.setUpcomingListKeys(arrayList);
+        //Compare the upcomingKeys
+        assertEquals(databaseListAccess.getUpcomingListKeys(), arrayList);
+        //Compare the defaultKeys
+        assertEquals(databaseListAccess.getDefaultListKeys(), arrayList);
+
+    }
 
 
 }

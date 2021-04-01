@@ -2,7 +2,6 @@ package com.example.shoppinglist;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class DatabaseListAccess implements Serializable {
 
@@ -11,19 +10,19 @@ public class DatabaseListAccess implements Serializable {
     // Map containing Key/Value for Upcoming Lists
     private ArrayList<CustomMap> upcomingListKeys;
     private DataHandler data;
-    private static String mainKey = "databaseAccessKeys";
+    private String mainKey;
 
-    ArrayList<Map<Integer, String>> accessKeys;
+    //TODO: I don't think this is doing anything
+    //ArrayList<Map<Integer, String>> accessKeys;
 
-    public static String getMainKey() {
-        return mainKey;
+
+    public DatabaseListAccess() {
+        this.mainKey = "databaseAccessKeys";
     }
 
-    public static void setMainKey(String mainKey) {
-        DatabaseListAccess.mainKey = mainKey;
+    public String getMainKey() {
+        return this.mainKey;
     }
-
-    public DatabaseListAccess() { }
 
     public ArrayList<CustomMap> getDefaultListKeys() {
         return defaultListKeys;
