@@ -12,6 +12,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * This class creates the adapter used by a ListView to display list of DefaultShoppingLists
+ *
+ * This creates the adapter used to display DefaultShoppingLists including a Checkbox to select the list and a Textview for the List name
+ *
+ * @author Team-06
+ * @version 2021.03.31
+ * @since 1.0
+ */
 public class CustomDefaultListNamesListViewAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<CustomMap> list;
     private Context context;

@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * quantity, a Textview for the Item name, and a button to delete the item from the Shopping list
  *
  * @author Team-06
- * @version 2021.0317
+ * @version 2021.03.31
  * @since 1.0
  */
 public class CustomShoppingTripListViewAdapter extends BaseAdapter implements ListAdapter {
