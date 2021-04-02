@@ -26,6 +26,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+/**
+ * This is the main activity for this application, and displays any upcoming shopping trip
+ *
+ * The user is able to select an upcoming trip to start the shopping trip, edit the upcoming trip,
+ * or delete the trip.  Additionally the user can select the Default Lists menu item to go to be able
+ * to manage the default lists
+ *
+ * @author Team-06
+ * @version 2021.03.31
+ * @since 1.0
+ */
 public class MainActivity extends AppCompatActivity {
 
     DataHandler data;

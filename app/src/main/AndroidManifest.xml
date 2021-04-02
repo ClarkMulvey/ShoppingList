@@ -23,8 +23,6 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".activities.MainActivity" />
     </activity>
-        <activity android:name=".activities.ShoppingSessionActivity"
-            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activities.StartShoppingActivity"
             android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="adjustPan">

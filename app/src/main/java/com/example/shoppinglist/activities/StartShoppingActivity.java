@@ -27,6 +27,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+/**
+ * This Activity is where the user does the shopping.
+ *
+ * The user is able to click a checkbox to signify the item has been completed, delete the item,
+ * add a new item or add more default lists to this trip.
+ *
+ * @author Team-06
+ * @version 2021.03.31
+ * @since 1.0
+ */
 public class StartShoppingActivity extends AppCompatActivity {
 
     private ShoppingList upcomingList;
