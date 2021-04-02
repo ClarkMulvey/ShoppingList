@@ -71,7 +71,9 @@ public class StartShoppingActivity extends AppCompatActivity {
         this.arrayPosition =  (Integer) getIntent().getIntExtra("arrayPosition", 0);
 
         this.listInfo = this.databaseListAccess.getUpcomingListKeys().get(this.arrayPosition);
-
+        /**
+         * Once the list has been created set title with the name of the shopping list created.
+         */
         setTitle(this.listInfo.getValue());
 
 
@@ -84,6 +86,7 @@ public class StartShoppingActivity extends AppCompatActivity {
             displayUpcomingList(this.upcomingList);
         }, listKey);
 
+        // This will add the FAB which we are using to add a new Item to our current upcomingList
         FloatingActionButton fab = findViewById(R.id.upcomingListTripFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -95,7 +98,12 @@ public class StartShoppingActivity extends AppCompatActivity {
 
     }
 
-    //Handles the Menu item
+    /**
+     * Handles the menu item
+     * We use this to go back to the previous activity, utilizing the backstack of activities
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
@@ -108,7 +116,13 @@ public class StartShoppingActivity extends AppCompatActivity {
 
     }
 
-    //Puts the menu item on the upper bar
+    /**
+     * This will add our button in the up right corner which allows the user
+     * To view the CreateUpcomingTripListActivity, which will allow the user
+     * to add additional defaultLists to this current upcomingList
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -116,6 +130,10 @@ public class StartShoppingActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This method will add the default trip data of the intent object
+     * and pass them to the start shopping activity.
+     */
     public void addDefaultListToTrip() {
         Intent intent = new Intent(this, CreateUpcomingTripListActivity.class);
         intent.putExtra("listKey", this.upcomingKeys.get(this.arrayPosition).getKey());
@@ -126,34 +144,49 @@ public class StartShoppingActivity extends AppCompatActivity {
         intent.putExtra("origin", "StartShoppingActivity");
 
         startActivity(intent);
-        //startActivityForResult(intent, 2);
+
     }
 
-
+    /**
+     * When we are done with the activity we will save all information to the database
+     * We return with an intent saying the result was okay, we also send back the newly updated
+     * databaseListAccess information
+     */
     @Override
     protected void onPause() {
         // call the superclass method first
         super.onPause();
-        /*
-        this.listInfo.setValue(this.listName.getText().toString());
-        this.data.writeListKeys(this.databaseListAccess, this.databaseListAccess.getMainKey());
-         */
+
         Intent returnIntent = new Intent();
         returnIntent.putExtra("databaseListAccess", this.databaseListAccess);
         setResult(RESULT_OK,returnIntent);
     }
 
+    /**
+     * This method will display the upcoming list defined in the shopping list
+     * the class CustomShoppingTripListViewAdapter creates the adapter used by the listview to display the shopping list.
+     * @param list
+     */
     public void displayUpcomingList(ShoppingList list) {
         //instantiate custom adapter
         CustomShoppingTripListViewAdapter adapter = new CustomShoppingTripListViewAdapter(list, this, this.data, this.listKey);
         this.listView.setAdapter(adapter);
     }
 
+    /**
+     * This method will clear the item name and quantity
+     */
     public void clearFields() {
         this.itemName.setText("");
         this.itemQuantity.setText("");
     }
 
+    /**
+     * This method will add item to the upcoming list
+     * get the item names and quantity.
+     * Create and exception to see if the shopping list has been saved, if not throw an exception that there was an error saving the shopping list.
+     * @param view
+     */
     public void addItemToUpcomingList(View view) {
         this.upcomingList.addItem(new ShoppingListItem(this.itemName.getText().toString(), Integer.parseInt(this.itemQuantity.getText().toString())));
 

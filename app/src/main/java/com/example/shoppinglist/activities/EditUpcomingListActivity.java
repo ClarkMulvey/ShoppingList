@@ -53,6 +53,10 @@ public class EditUpcomingListActivity extends AppCompatActivity {
     private CustomMap listInfo;
     private Integer arrayPosition;
 
+    /**
+     * OnCreate method - assigns all member vars, gets data, and populates the Views
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +68,7 @@ public class EditUpcomingListActivity extends AppCompatActivity {
         // instantiate data handler object
         this.data = new DataHandler();
 
+        // grab the page Views
         this.itemName = (EditText) findViewById(R.id.ItemName);
         this.itemQuantity = (EditText) findViewById(R.id.ItemQuantity);
         this.listView = (ListView) findViewById(R.id.listView);
@@ -87,6 +92,7 @@ public class EditUpcomingListActivity extends AppCompatActivity {
             displayUpcomingList(this.upcomingList);
         }, listKey);
 
+        // This will add the FAB which we are using to add a new item to the UpcomingList
         FloatingActionButton fab = findViewById(R.id.upcomingListTripFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -97,7 +103,7 @@ public class EditUpcomingListActivity extends AppCompatActivity {
         });
     }
 
-    //Handles the Menu item
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
@@ -110,7 +116,13 @@ public class EditUpcomingListActivity extends AppCompatActivity {
 
     }
 
-    //Puts the menu item on the upper bar
+    /**
+     * This will add our button in the up right corner which allows the user
+     * To view the CreateUpcomingTripListActivity, which will allow the user
+     * to add additional defaultLists to this current upcomingList
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -118,6 +130,9 @@ public class EditUpcomingListActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This is the method that creates the intent and starts the CreateUpcomingTripListActivity
+     */
     public void addDefaultListToTrip() {
         Intent intent = new Intent(this, CreateUpcomingTripListActivity.class);
         intent.putExtra("listKey", this.upcomingKeys.get(this.arrayPosition).getKey());
@@ -125,13 +140,17 @@ public class EditUpcomingListActivity extends AppCompatActivity {
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
         intent.putExtra("databaseListAccess", this.databaseListAccess);
         intent.putExtra("upcomingListItems", this.upcomingList);
+        // This line tells the createUpcomingTripListActivity where we came from
         intent.putExtra("origin", "EditUpcomingListActivity");
 
         startActivity(intent);
-        //startActivityForResult(intent, 2);
     }
 
-
+    /**
+     * When we are done with the activity we will save all information to the database
+     * We return with an intent saying the result was okay, we also send back the newly updated
+     * databaseListAccess information
+     */
     @Override
     protected void onPause() {
         // call the superclass method first
@@ -143,17 +162,29 @@ public class EditUpcomingListActivity extends AppCompatActivity {
         setResult(RESULT_OK,returnIntent);
     }
 
+    /**
+     * This will display the list of shopping list items and a delete button next to it so that
+     * the user can delete the item
+     * @param list
+     */
     public void displayUpcomingList(ShoppingList list) {
         //instantiate custom adapter
         CustomUpcomingListViewAdapter adapter = new CustomUpcomingListViewAdapter(list, this, this.data, this.listKey);
         this.listView.setAdapter(adapter);
     }
 
+    /**
+     * When we have added an item to our list we want to delete the information from these text fields
+     */
     public void clearFields() {
         this.itemName.setText("");
         this.itemQuantity.setText("");
     }
 
+    /**
+     * This will add an item to our upcoming list, show a toast, clear the input fields, and re display
+     * @param view
+     */
     public void addItemToUpcomingList(View view) {
         this.upcomingList.addItem(new ShoppingListItem(this.itemName.getText().toString(), Integer.parseInt(this.itemQuantity.getText().toString())));
 
