@@ -9,7 +9,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
+/**
+ * This Class is the class to read and write to the firebase database.
+ *
+ * This will instantiate an instance of the Firebase, and provides four methods: readData,
+ * getListKeys, writeData, and writeListKeys in order to read and write to the Database.
+ *
+ * @author Team-06
+ * @version 2021.03.31
+ * @since 1.0
+ */
 public class DataHandler {
      private FirebaseDatabase mFirebaseDatabase;
 
