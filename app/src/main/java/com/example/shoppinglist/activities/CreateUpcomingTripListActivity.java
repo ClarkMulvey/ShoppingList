@@ -55,25 +55,24 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
         // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        // set all member variables
         this.databaseListAccess = (DatabaseListAccess) getIntent().getSerializableExtra("databaseListAccess");
         this.originActivity = (String) getIntent().getStringExtra("origin");
         this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
-
         this.defaultListChecked = new ArrayList<>();
-
-
         // instantiate data handler object
         this.data = new DataHandler();
 
+        // Grab elements on the page
         this.listView = (ListView) findViewById(R.id.defaultListsView);
         this.listName = (EditText) findViewById(R.id.upcomingListName);
-
         this.listKey = (String) getIntent().getStringExtra("listKey");
         this.arrayPosition = (Integer) getIntent().getIntExtra("arrayPosition", 0);
 
-
+        // This is for easy access for which list we will be pointing to
         this.listInfo = this.databaseListAccess.getUpcomingListKeys().get(this.arrayPosition);
 
+        // show the list name to the user
         this.listName.setText(this.listInfo.getValue());
 
         //Check to see if the ShoppingList has any items
@@ -89,6 +88,14 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
 
     }
 
+    /**************************************************************************
+     * populateUpcomingList
+     * This method will populate the upcoming list when the
+     * These default lists will be able to be checked with a cooresponding checkbox
+     * When the
+     *
+     * @param view
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void populateUpcomingList (View view){
 
