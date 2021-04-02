@@ -85,8 +85,6 @@ public class StartShoppingActivity extends AppCompatActivity {
 
     }
 
-    //TODO: Need to edit the code below to put the appropriate menu Item on this Activity
-
     //Handles the Menu item
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){

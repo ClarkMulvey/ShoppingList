@@ -4,6 +4,16 @@ import android.content.res.Configuration;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * This is a helper class to setup custom attributes for this application.
+ *
+ * In order to change the default behavior of the Firebase implementation, this was added to allow
+ * for persistence in case the device doesn't have network connectivity.
+ *
+ * @author Team-06
+ * @version 2021.03.31
+ * @since 1.0
+ */
 public class ShoppingListCustomApplication extends Application{
 
     // Called when the application is starting, before any other application objects have been created.
@@ -11,7 +21,7 @@ public class ShoppingListCustomApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        // Required initialization logic here!
+        // Allow for Firebase Persistence
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 

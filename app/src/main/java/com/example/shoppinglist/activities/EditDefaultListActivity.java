@@ -96,9 +96,6 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
     }
 
-
-    //TODO: We should delete this menu item now, we no longer need this to save, the save happens
-    // automatically now
     //Handles the Menu item
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){

@@ -69,8 +69,6 @@ public class CustomDefaultListNamesListViewAdapter extends BaseAdapter implement
         TextView listItemName = (TextView)view.findViewById(R.id.defaultListName);
         listItemName.setText(list.get(position).getValue());
 
-        //TODO: Need to add an
-
         return view;
     }
 

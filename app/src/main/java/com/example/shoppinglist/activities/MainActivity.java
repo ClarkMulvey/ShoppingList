@@ -168,21 +168,6 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 2);
     }
 
-/*
-    public void clickViewEditUpcomingList(Integer position) {
-
-        //TODO: This should really go to the start shopping activity for the specific list
-        Intent intent = new Intent(this, EditUpcomingListActivity.class);
-        intent.putExtra("listKey", this.upcomingKeys.get(position).getKey());
-        intent.putExtra("arrayPosition", position);
-        intent.putExtra("defaultKeys", this.databaseListAccess.getUpcomingListKeys());
-        intent.putExtra("databaseListAccess", this.databaseListAccess);
-
-        startActivity(intent);
-
-    }
-
- */
 
     public void displayUpcomingList(ArrayList<CustomMap> defaultKeys) {
         CustomButtonListener customListener = new CustomButtonListener() {
@@ -202,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
-                //TODO: Need to implement this Method, and then uncomment this
                 clickStartShopping(position);
             }
 
