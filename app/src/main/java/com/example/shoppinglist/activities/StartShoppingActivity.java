@@ -151,7 +151,7 @@ public class StartShoppingActivity extends AppCompatActivity {
      * When we are done with the activity we will save all information to the database
      * We return with an intent saying the result was okay, we also send back the newly updated
      * databaseListAccess information
-     */x
+     */
     @Override
     protected void onPause() {
         // call the superclass method first
