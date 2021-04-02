@@ -122,6 +122,12 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * This is the method we call when the user clicks on one of the edit buttons next to the
+     * default list name in the listView, or the list itself
+     * This will take the user to the EditDefaultListActivity
+     * @param position
+     */
     public void clickViewEditDefaultList(Integer position) {
         Intent intent = new Intent(ViewDefaultListsActivity.this, EditDefaultListActivity.class);
         intent.putExtra("listKey", this.defaultKeys.get(position).getKey());
@@ -133,7 +139,10 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * This will display a list of the default lists with their name, an edit button, and a delete button
+     * @param defaultKeys
+     */
     public void displayDefaultList(ArrayList<CustomMap> defaultKeys) {
 
         CustomButtonListener customListener = new CustomButtonListener() {
@@ -159,6 +168,10 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * When the user clicks the FAB this will be called - it will take the user
+     * to the EditDefaultListActivity for a new default List
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void addDefaultList() {
         Long instant = System.currentTimeMillis();
