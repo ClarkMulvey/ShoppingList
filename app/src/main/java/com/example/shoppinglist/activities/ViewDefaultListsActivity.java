@@ -77,6 +77,14 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *  When editing default list this method allows for page refresh once returning to this
+     *  activity and the new list will display in the listview
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -94,9 +102,14 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
     }
 
 
-    //Switch Statement for the Possibility of adding additional items at a future date
-    // Checks to see if the item selected is the back in order to force the finish to kill the
-    // activity
+    /**
+     * Switch Statement for the Possibility of adding additional items at a future date
+     * Checks to see if the item selected is the back in order to force the finish to kill the
+     * activity
+     * @param item
+     * @return bool
+     */
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -117,9 +130,9 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
         startActivityForResult(intent, 1);
-        //startActivity(intent);
 
     }
+
 
     public void displayDefaultList(ArrayList<CustomMap> defaultKeys) {
 
@@ -161,8 +174,7 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
             Toast.makeText(this, "There was an error adding the default shopping list.", Toast.LENGTH_LONG).show();
             Log.i("Save Error:",e.toString());
         }
-        //Toast.makeText(this, this.itemName.getText().toString() + " has been added to the list" , Toast.LENGTH_LONG).show();
-        //displayDefaultList(this.defaultKeys);
+
         Intent intent = new Intent(ViewDefaultListsActivity.this, EditDefaultListActivity.class);
         intent.putExtra("listKey", this.defaultKeys.get(position).getKey());
         intent.putExtra("arrayPosition", position);
@@ -170,7 +182,7 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
         startActivityForResult(intent, 1);
-        //startActivity(intent);
+
     }
 
 
