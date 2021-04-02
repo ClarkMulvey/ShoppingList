@@ -103,12 +103,7 @@ public class EditUpcomingListActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Handles the menu item
-     * We use this to go back to the previous activity, utilizing the backstack of activities
-     * @param item
-     * @return
-     */
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){

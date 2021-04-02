@@ -86,6 +86,7 @@ public class StartShoppingActivity extends AppCompatActivity {
             displayUpcomingList(this.upcomingList);
         }, listKey);
 
+        // This will add the FAB which we are using to add a new Item to our current upcomingList
         FloatingActionButton fab = findViewById(R.id.upcomingListTripFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -97,7 +98,12 @@ public class StartShoppingActivity extends AppCompatActivity {
 
     }
 
-    //Handles the Menu item
+    /**
+     * Handles the menu item
+     * We use this to go back to the previous activity, utilizing the backstack of activities
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
@@ -110,7 +116,13 @@ public class StartShoppingActivity extends AppCompatActivity {
 
     }
 
-    //Puts the menu item on the upper bar
+    /**
+     * This will add our button in the up right corner which allows the user
+     * To view the CreateUpcomingTripListActivity, which will allow the user
+     * to add additional defaultLists to this current upcomingList
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -135,7 +147,11 @@ public class StartShoppingActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * When we are done with the activity we will save all information to the database
+     * We return with an intent saying the result was okay, we also send back the newly updated
+     * databaseListAccess information
+     */
     @Override
     protected void onPause() {
         // call the superclass method first
