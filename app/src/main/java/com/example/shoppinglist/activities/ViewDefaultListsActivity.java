@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class ViewDefaultListsActivity extends AppCompatActivity {
 
     private ArrayList<CustomMap> defaultKeys;
-    private DataHandler data = new DataHandler();
+    private final DataHandler data = new DataHandler();
     private String listKey;
     private ListView listView;
     private DatabaseListAccess databaseListAccess;
@@ -45,12 +45,13 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
 
         this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
 
-        this.listView = (ListView) findViewById(R.id.defaultListView);
+        this.listView = findViewById(R.id.defaultListView);
 
         // calling the action bar
         ActionBar actionBar = getSupportActionBar();
 
         // showing the back button in action bar
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         displayDefaultList(this.defaultKeys);
@@ -80,14 +81,13 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
                 this.defaultKeys = this.databaseListAccess.getDefaultListKeys();
                 displayDefaultList(this.defaultKeys);
             }
-            //TODO: Should we remove this, it's not doing anything.
-            if (resultCode == RESULT_CANCELED) {
-                //Do nothing?
-            }
         }
     }
 
 
+    //Switch Statement for the Possibility of adding additional items at a future date
+    // Checks to see if the item selected is the back in order to force the finish to kill the
+    // activity
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -99,18 +99,6 @@ public class ViewDefaultListsActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    @Override
-    protected void onPause() {
-        // call the superclass method first
-        super.onPause();
-        this.data.writeListKeys(this.databaseListAccess, this.databaseListAccess.getMainKey());
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("databaseListAccess", this.databaseListAccess);
-        setResult(RESULT_OK,returnIntent);
-        //this.finish();
-    }
-     */
 
     public void clickViewEditDefaultList(Integer position) {
         Intent intent = new Intent(ViewDefaultListsActivity.this, EditDefaultListActivity.class);

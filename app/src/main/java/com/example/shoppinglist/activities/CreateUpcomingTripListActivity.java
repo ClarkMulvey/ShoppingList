@@ -24,6 +24,16 @@ import com.example.shoppinglist.ShoppingList;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * This Activity allows for the creation of an Upcoming Shopping Trip
+ *
+ * The user is able create a new upcoming shopping list and put in the name of the list.
+ *  Additionally the user can choose default lists to be able to add to this new shopping list.
+ *
+ * @author Team-06
+ * @version 2021.03.31
+ * @since 1.0
+ */
 public class CreateUpcomingTripListActivity extends AppCompatActivity {
 
 
@@ -115,11 +125,6 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
                     Log.i("reading Firebase", "Trying to read in a lamda");
                     if (defaultList != null) {
                         defaultList.getItems().forEach(item -> {
-
-                            //TODO: This doesn't work to check if the item already exists.  It is failing
-                            // since it is looking for the object memory reference, which wouldn't be the
-                            // same, we would need to be checking the values.  There are some posts
-                            // about using stream for this
 
                             AtomicReference<Boolean> found = new AtomicReference<>(false);
                             this.newShoppingList.getItems().forEach(checkItem -> {

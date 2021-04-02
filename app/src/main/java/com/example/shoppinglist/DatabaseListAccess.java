@@ -12,10 +12,6 @@ public class DatabaseListAccess implements Serializable {
     private DataHandler data;
     private String mainKey;
 
-    //TODO: I don't think this is doing anything
-    //ArrayList<Map<Integer, String>> accessKeys;
-
-
     public DatabaseListAccess() {
         this.mainKey = "databaseAccessKeys";
     }
