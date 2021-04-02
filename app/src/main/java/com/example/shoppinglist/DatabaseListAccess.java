@@ -3,6 +3,16 @@ package com.example.shoppinglist;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * This Class is to handle reading and writing the list keys for the instances in Firebase
+ *
+ * This class will manage the keys for the default lists and the upcoming lists in order to be keep
+ * track of the lists in order to get the correct one.
+ *
+ * @author Team-06
+ * @version 2021.03.31
+ * @since 1.0
+ */
 public class DatabaseListAccess implements Serializable {
 
     // Map containing Key/Value for Default Lists

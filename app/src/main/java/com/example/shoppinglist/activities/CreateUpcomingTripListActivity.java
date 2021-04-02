@@ -29,6 +29,8 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * The user is able create a new upcoming shopping list and put in the name of the list.
  *  Additionally the user can choose default lists to be able to add to this new shopping list.
+ *  We can access this activity from 3 separate activities MainActivity, EditUpcomingListActivity, and StartShoppingActivity
+ *  We have code to handle which activity to return to/go to based on which activity we came from.
  *
  * @author Team-06
  * @version 2021.03.31
@@ -52,7 +54,10 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
     private ShoppingList upcomingList;
     private String originActivity;
 
-
+    /**
+     * OnCreate method - assigns all member vars, gets data, and populates the Views
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,45 +105,55 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
 
     /**************************************************************************
      * populateUpcomingList
-     * This method will populate the upcoming list when the
-     * These default lists will be able to be checked with a cooresponding checkbox
-     * When the
+     * This method will populate the upcoming list when the next button is clicked
+     * The default lists that are checked will contain the data which will be added
+     * To the upcoming list. We would like to note that the database is saved after each default
+     * list is added to the upcoming list.
+     * This is where we handle the logic of where we came from, and decide where to go
+     * after we have populated the upcoming list
      *
      * @param view
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void populateUpcomingList (View view){
-
-        Log.i("CreateUpcoming", "After Submit button is Pushed.  About to populate the upcoming List!");
-
         ArrayList<CustomMap> defaultLists = this.databaseListAccess.getDefaultListKeys();
         this.position = 0;
 
         //Iterate through the array of checked items to get the position of the Default List
         this.defaultListChecked.forEach(list -> {
             String defaultListKey = new String();
+            // If the checkbox is checked
             if (list.booleanValue() == true) {
                 defaultListKey = this.databaseListAccess.getDefaultListKeys().get(this.position).getKey();
                 //Read the data from Firebase
                 data.readData(defaultListItem -> {
                     defaultList = defaultListItem;
-                    Log.i("reading Firebase", "Trying to read in a lamda");
+
+                    // Make sure the default list exists
                     if (defaultList != null) {
                         defaultList.getItems().forEach(item -> {
 
+                            //This block of code will check to see if the item is already added to the upcoming list, if it is
+                            // It will not add it a second time. We don't want to have the user accidentally add more than one
+                            // Copy of the default list.
                             AtomicReference<Boolean> found = new AtomicReference<>(false);
                             this.newShoppingList.getItems().forEach(checkItem -> {
-                                    if (item.getName().equals(checkItem.getName()) && item.getQuantity().equals(checkItem.getQuantity())) {
-                                        found.set(true);
-                                    }
-                           });
+                                // If the item is found, set found var to true
+                                if (item.getName().equals(checkItem.getName()) && item.getQuantity().equals(checkItem.getQuantity())) {
+                                    found.set(true);
+                                }
+                            });
+                            // Only if not found will we add to upcoming list
                             if (!found.get()) {
                                 this.newShoppingList.addItem(item);
                             }
                         });
                     }
                     this.data.writeData(this.newShoppingList, this.listKey);
-                    //Set the intent destination based on where it came from
+
+                    // This block of code will handle which activity to go to next.
+                    // If we came from main activity or editupcomingListActivity we want to return
+                    // to editUpcomingListActivity
                     if (this.originActivity.equals("EditUpcomingListActivity") || this.originActivity.equals("MainActivity") ) {
                         Intent intent = new Intent(this, EditUpcomingListActivity.class);
                         intent.putExtra("listKey", this.listKey);
@@ -146,7 +161,11 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
                         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
                         startActivity(intent);
-                    } else {
+
+                    }
+                    // If we didn't come from either of those two then we know we came from startShoppingSessionActivity -
+                    // And we want to return there when finished with this activity.
+                    else {
                         Intent intent = new Intent(this, StartShoppingActivity.class);
                         intent.putExtra("listKey", this.listKey);
                         intent.putExtra("arrayPosition", arrayPosition);
@@ -164,16 +183,29 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
         // Save the Upcoming List Name
         this.databaseListAccess.getUpcomingListKeys().get(this.arrayPosition).setValue(this.listName.getText().toString());
         this.data.writeListKeys(this.databaseListAccess, this.databaseListAccess.getMainKey());
-
-
     }
 
+    /***
+     * This method will use a custom list view adapter CustomDefaultListNamesListViewAdapter
+     * in order to populate the listview on this page, this listview will have the list of all the
+     * default lists and a checkbox next to them for the user to select which will indicate to the program
+     * which default lists to add to the upcoming shopping list
+     * @param defaultKeys
+     */
     public void displayDefaultLists(ArrayList<CustomMap> defaultKeys) {
         //instantiate custom adapter
         CustomDefaultListNamesListViewAdapter adapter = new CustomDefaultListNamesListViewAdapter(defaultKeys, this, this.data, this.databaseListAccess, listKey, this.defaultListChecked);
         this.listView.setAdapter(adapter);
     }
 
+    /**
+     * Here we handle if we have entered the activity from MainActivity - if we have
+     * Then we will delete the newly created upcoming list which was created when we entered this activity
+     * This is because in order to create an upcoming shopping list it's a two step process - we did
+     * not want the user to have to go through two full steps and then go back just to delete a mistakenly created list
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -192,6 +224,9 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This is the method that deletes the newly created upcoming list and saves it to the database
+     */
     protected void deleteNewlyCreatedListAndGoBack() {
         this.databaseListAccess.getUpcomingListKeys().remove(this.databaseListAccess.getUpcomingListKeys().size() - 1);
         this.data.writeListKeys(this.databaseListAccess, this.databaseListAccess.getMainKey());

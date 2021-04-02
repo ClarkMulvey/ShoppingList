@@ -25,6 +25,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+/**
+ * This Activity Allows the user to see all of the default lists
+ *
+ * The User is select a default list to edit, delete a default list, or add a new default list
+ *
+ * @author Team-06
+ * @version 2021.03.31
+ * @since 1.0
+ */
 public class ViewDefaultListsActivity extends AppCompatActivity {
 
     private ArrayList<CustomMap> defaultKeys;

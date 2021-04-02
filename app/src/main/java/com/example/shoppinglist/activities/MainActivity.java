@@ -26,6 +26,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+/**
+ * This is the main activity for this application, and displays any upcoming shopping trip
+ *
+ * The user is able to select an upcoming trip to start the shopping trip, edit the upcoming trip,
+ * or delete the trip.  Additionally the user can select the Default Lists menu item to go to be able
+ * to manage the default lists
+ *
+ * @author Team-06
+ * @version 2021.03.31
+ * @since 1.0
+ */
 public class MainActivity extends AppCompatActivity {
 
     DataHandler data;
@@ -34,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private ArrayList<CustomMap> upcomingKeys;
 
+    /**
+     * OnCreate method - assigns all member vars, gets data, and populates the Views
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -45,8 +60,10 @@ public class MainActivity extends AppCompatActivity {
 
         setTitle("Upcoming Trips");
 
+        // get data
         readDataFromFirebase();
 
+        // This will add the FAB which we are using to add a new upcomingList
         FloatingActionButton fab = findViewById(R.id.fabAddUpcomingList);
         fab.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -58,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This will read in the databaseListAccess object from the database
+     * Currently we are only storing the name of the list and the key to access said list
+     * We didn't want to pull all data down from Firebase if we aren't going to use all the data
+     *
+     */
     public void readDataFromFirebase(){
         //Read the data from Firebase
         data.getListKeys(databaseListAccessObj -> {
@@ -93,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
         }, databaseListAccess.getMainKey());
     }
 
+    /**
+     * If we have left we want fresh data, so get the data again
+     */
     @Override
     protected void onResume(){
         super.onResume();
@@ -100,7 +126,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Handles the menu item
+     * We use this to go to ViewDefaultListsActivity
+     * @param item
+     * @return
+     */
     //Handles the Menu item
     @Override
     public boolean onOptionsItemSelected (@NonNull MenuItem item){
@@ -115,7 +146,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //Puts the menu item on the upper bar
+    /**
+     * This is the button that we will click to get to ViewDefaultListsActivity
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu (Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -123,15 +158,21 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This is how we get to ViewDefaultListsActivity
+     */
     public void clickViewDefaultLists () {
         Intent intent = new Intent(this, ViewDefaultListsActivity.class);
         intent.putExtra("databaseListAccess", this.databaseListAccess);
 
-        //startActivityForResult(intent, 2);
         startActivity(intent);
-
     }
 
+    /**
+     * When a user clicks one of the items in the listView containing all of the upcoming shopping lists
+     * we will take them to the StartShoppingActivity
+     * @param position
+     */
     public void clickStartShopping (Integer position){
         Intent intent = new Intent(this, StartShoppingActivity.class);
         intent.putExtra("listKey", this.databaseListAccess.getUpcomingListKeys().get(position).getKey());
@@ -141,11 +182,16 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
+    /**
+     * When the user clicks the FAB this will be called - it will take the user
+     * to the CreateUpcomingTripListActivity
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void addUpcomingList() {
         Long instant = System.currentTimeMillis();
         String newKey = "Upcoming-" + instant.toString();
 
+        // create a new upcomingList entry in the databaseListAccess
         this.databaseListAccess.getUpcomingListKeys().add(new CustomMap(newKey, ""));
         Integer position = this.databaseListAccess.getUpcomingListKeys().size() - 1;
 
@@ -163,12 +209,16 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("arrayPosition", position);
         intent.putExtra("defaultKeys", this.databaseListAccess.getDefaultListKeys());
         intent.putExtra("databaseListAccess", this.databaseListAccess);
+        // notifies CreateUpcomingTripListActivity where the user came from
         intent.putExtra("origin", "MainActivity");
 
         startActivityForResult(intent, 2);
     }
 
-
+    /**
+     * This will display a list of the upcoming lists with their name, an edit button, and a delete button
+     * @param defaultKeys
+     */
     public void displayUpcomingList(ArrayList<CustomMap> defaultKeys) {
         CustomButtonListener customListener = new CustomButtonListener() {
             @Override
@@ -181,10 +231,9 @@ public class MainActivity extends AppCompatActivity {
         CustomShoppingListKeysListViewAdapter adapter = new CustomShoppingListKeysListViewAdapter(defaultKeys, this, this.data, this.databaseListAccess, listKey, customListener);
         this.listView.setAdapter(adapter);
 
-
-
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
+            // When the item is clicked startShopping
             @Override
             public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
                 clickStartShopping(position);
@@ -195,6 +244,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This is the method we call when the user clicks on one of the edit buttons next to the
+     * upcoming list name in the listView
+     * This will take the user to the EditUpcomingListActivity
+     * @param position
+     */
     public void clickEditUpcomingList(Integer position) {
         Intent intent = new Intent(this, EditUpcomingListActivity.class);
         intent.putExtra("listKey", this.databaseListAccess.getUpcomingListKeys().get(position).getKey());
@@ -205,6 +260,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This is when we are coming back with a result, we will be dealing with new databaseListAccess items
+     * We don't need to use any kind of database call because regardless if we got the name and key of a new list
+     * from the database or from another activity, the act of getting the information for that list
+     * is the exact same.
+     *
+     * Currently we have two separate result codes that do the exact same thing.
+     * We are leaving this as is because it doesn't hurt anything, and we may want to refactor in the future
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //onActivityResult
@@ -216,18 +283,12 @@ public class MainActivity extends AppCompatActivity {
                 this.upcomingKeys = this.databaseListAccess.getUpcomingListKeys();
                 displayUpcomingList(this.upcomingKeys);
             }
-            if (resultCode == RESULT_CANCELED) {
-                //Do nothing?
-            }
         } else if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 this.databaseListAccess = (DatabaseListAccess) data.getSerializableExtra("databaseListAccess");
                 this.listKey = this.databaseListAccess.getMainKey();
                 this.upcomingKeys = this.databaseListAccess.getUpcomingListKeys();
                 displayUpcomingList(this.upcomingKeys);
-            }
-            if (resultCode == RESULT_CANCELED) {
-                //Do nothing?
             }
         }
     }

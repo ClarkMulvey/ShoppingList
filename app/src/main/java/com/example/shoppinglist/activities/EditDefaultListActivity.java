@@ -26,7 +26,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-
+/**
+ * This Activity Allows the suer to edit a default list
+ *
+ * The User is able to change the name of the default list as well as add/remove items from the list
+ *
+ * @author Team-06
+ * @version 2021.03.31
+ * @since 1.0
+ */
 public class EditDefaultListActivity extends AppCompatActivity {
 
     private ShoppingList defaultList;
@@ -43,6 +51,10 @@ public class EditDefaultListActivity extends AppCompatActivity {
     private Integer arrayPosition;
 
 
+    /**
+     * OnCreate method - assigns all member vars, gets data, and populates the Views
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +66,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
         // instantiate data handler object
         this.data = new DataHandler();
 
+        // get the Views on the page
         this.itemName = (EditText) findViewById(R.id.ItemName);
         this.itemQuantity = (EditText) findViewById(R.id.ItemQuantity);
         this.listView = (ListView) findViewById(R.id.listView);
@@ -63,7 +76,7 @@ public class EditDefaultListActivity extends AppCompatActivity {
         this.listKey = (String) getIntent().getStringExtra("listKey");
         this.arrayPosition =  (Integer) getIntent().getIntExtra("arrayPosition", 0);
 
-
+        // This is for convenience in working with the list in question
         this.listInfo = this.databaseListAccess.getDefaultListKeys().get(this.arrayPosition);
 
         this.listName.setText(this.listInfo.getValue());
@@ -83,20 +96,24 @@ public class EditDefaultListActivity extends AppCompatActivity {
         // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        // This will add the FAB which we are using to add a new item to the DefaultList
         FloatingActionButton fab = findViewById(R.id.addItemsListFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 addItemToDefaultList(view);
-                //test();
-
             }
         });
 
     }
 
-    //Handles the Menu item
+    /**
+     * Handles the menu item
+     * We use this to go back to the previous activity, utilizing the backstack of activities
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
@@ -110,6 +127,11 @@ public class EditDefaultListActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * When we are done with the activity we will save all information to the database
+     * We return with an intent saying the result was okay, we also send back the newly updated
+     * databaseListAccess information
+     */
     @Override
     protected void onPause() {
         // call the superclass method first
@@ -123,17 +145,32 @@ public class EditDefaultListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method will use a custom list view adapter CustomListViewAdapter
+     * in order to populate the listview on this page, this listview will have the list of all the
+     * shopping list Items within this default list and a delete button which will delete
+     * the item from the default shopping list
+     * @param list
+     */
     public void displayDefaultList(ShoppingList list) {
         //instantiate custom adapter
         CustomListViewAdapter adapter = new CustomListViewAdapter(list, this, this.data, this.listKey);
         this.listView.setAdapter(adapter);
     }
 
+
+    /**
+     * When we have added an item to our list we want to delete the information from these text fields
+     */
     public void clearFields() {
         this.itemName.setText("");
         this.itemQuantity.setText("");
     }
 
+    /**
+     * This will add an item to our default list, show a toast, clear the input fields, and re display
+     * @param view
+     */
     public void addItemToDefaultList(View view) {
         this.defaultList.addItem(new ShoppingListItem(this.itemName.getText().toString(), Integer.parseInt(this.itemQuantity.getText().toString())));
 
