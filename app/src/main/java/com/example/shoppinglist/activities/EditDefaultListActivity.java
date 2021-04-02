@@ -26,7 +26,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-
+/**
+ * This Activity Allows the suer to edit a default list
+ *
+ * The User is able to change the name of the default list as well as add/remove items from the list
+ *
+ * @author Team-06
+ * @version 2021.03.31
+ * @since 1.0
+ */
 public class EditDefaultListActivity extends AppCompatActivity {
 
     private ShoppingList defaultList;

@@ -27,6 +27,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+/**
+ * This Activity Allows the user to edit an upcoming shopping trip list
+ *
+ * The User is able to change the name of the upcoming shopping list as well as add/remove items
+ * from the list.  Additionally the user is able select the menu item to be able to add additional
+ * default lists to this shopping list
+ *
+ * @author Team-06
+ * @version 2021.03.31
+ * @since 1.0
+ */
 public class EditUpcomingListActivity extends AppCompatActivity {
 
     private ShoppingList upcomingList;
