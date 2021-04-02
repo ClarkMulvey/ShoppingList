@@ -32,6 +32,14 @@ public class CustomShoppingTripListViewAdapter extends BaseAdapter implements Li
     private ShoppingList shoppingList;
     String listKey;
 
+    /**
+     * Constructor for the CustomShoppingTripListViewAdapter class.
+     *
+     * @param list
+     * @param context
+     * @param data
+     * @param listKey
+     */
     public CustomShoppingTripListViewAdapter(ShoppingList list, Context context, DataHandler data, String listKey) {
         this.list = list.getItems();
         this.shoppingList = list;
@@ -52,11 +60,20 @@ public class CustomShoppingTripListViewAdapter extends BaseAdapter implements Li
 
     @Override
     public long getItemId(int pos) {
-        //return list.get(pos).getId();
         return 0;
         //We aren't using Item ID's
     }
 
+    /**
+     * This method generates the view to display the items of the Shopping list.  It includes the
+     * list name, item quantity, checkbox to mark if the item is completed, and a button to
+     * delete the item.
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -78,6 +95,8 @@ public class CustomShoppingTripListViewAdapter extends BaseAdapter implements Li
         //Handle the CheckBox for whether an item is complete
         CheckBox listItemComplete = (CheckBox) view.findViewById(R.id.itemComplete);
 
+        //Define the onclick listener to hande when the completed checkbox is clicked, this will
+        // strikethrough the text or take the strikethrough away.
         listItemComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +113,7 @@ public class CustomShoppingTripListViewAdapter extends BaseAdapter implements Li
             }
         });
 
-
+        //Check whether the item is completed, and display it properly
         if (list.get(position).isCompleted()) {
             listItemName.setPaintFlags(listItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             listItemQuantity.setPaintFlags(listItemQuantity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -109,6 +128,8 @@ public class CustomShoppingTripListViewAdapter extends BaseAdapter implements Li
         //Handle buttons and add onClickListeners
         FloatingActionButton deleteBtn = (FloatingActionButton) view.findViewById(R.id.delete_btn);
 
+        //Define the onclick listener which will delete the item from the list and then refresh the
+        // display
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

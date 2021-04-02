@@ -32,7 +32,16 @@ public class CustomShoppingListKeysListViewAdapter extends BaseAdapter implement
     private String listKey;
     private CustomButtonListener customListener;
 
-
+    /**
+     * Constructor for the CustomShoppingListKeysListViewAdapter class.
+     *
+     * @param list
+     * @param context
+     * @param data
+     * @param databaseListAccess
+     * @param listKey
+     * @param customListener
+     */
     public CustomShoppingListKeysListViewAdapter(ArrayList<CustomMap> list, Context context, DataHandler data, DatabaseListAccess databaseListAccess, String listKey, CustomButtonListener customListener) {
         this.list = list;
         this.context = context;
@@ -54,11 +63,19 @@ public class CustomShoppingListKeysListViewAdapter extends BaseAdapter implement
 
     @Override
     public long getItemId(int pos) {
-        //return list.get(pos).getId();
         return 0;
         //We aren't using Item ID's
     }
 
+    /**
+     * This method generates the view to display the items of the list.  It includes the shopping
+     * list name, a button to edit the list, and a button to delete the list.
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -76,6 +93,8 @@ public class CustomShoppingListKeysListViewAdapter extends BaseAdapter implement
         //Handle buttons and add onClickListeners
         FloatingActionButton deleteBtn = (FloatingActionButton) view.findViewById(R.id.delete_btn);
 
+        //On Click Listener to delete the list from the database as well as the reference to the list
+        // in the listKeys.
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -91,6 +110,7 @@ public class CustomShoppingListKeysListViewAdapter extends BaseAdapter implement
         //Handle buttons and add onClickListeners
         FloatingActionButton editBtn = (FloatingActionButton) view.findViewById(R.id.edit_button);
 
+        //On Click listener to set the array position of the list the user wants to edit
         editBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

@@ -29,6 +29,14 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
     private ShoppingList shoppingListDefault;
     String listKey;
 
+    /**
+     * Constructor for the CustomListViewAdapter.
+     *
+     * @param list
+     * @param context
+     * @param data
+     * @param listKey
+     */
     public CustomListViewAdapter(ShoppingList list, Context context, DataHandler data, String listKey) {
         this.list = list.getItems();
         this.shoppingListDefault = list;
@@ -54,6 +62,15 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
         //We aren't using Item ID's
     }
 
+    /**
+     * This method generates the view to display the items of the list.  It includes the item name,
+     * item quantity, and a button to delete the item.
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -76,6 +93,7 @@ public class CustomListViewAdapter extends BaseAdapter implements ListAdapter {
         //Handle buttons and add onClickListeners
         FloatingActionButton deleteBtn = (FloatingActionButton) view.findViewById(R.id.delete_btn);
 
+        //custom listener to remove the item if they click the delete button
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

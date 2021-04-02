@@ -22,13 +22,18 @@ import com.google.firebase.database.ValueEventListener;
 public class DataHandler {
      private FirebaseDatabase mFirebaseDatabase;
 
-    /*
-    Default constructor which creates the DB Instance from Firebase
-     */
+
     public DataHandler() {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
     }
 
+    /**
+     * This method reads data from the firebase database for the specific listKey and then passes
+     * it back to the callback so it can be used in the calling class.
+     *
+     * @param myCallback
+     * @param listKey
+     */
     public void readData(FirebaseCallback myCallback, String listKey) {
 
         DatabaseReference mDatabaseReference = this.mFirebaseDatabase.getReference(listKey);
@@ -43,6 +48,12 @@ public class DataHandler {
         });
     }
 
+    /**
+     * Reads all of the list keys from the Firebase Database
+     *
+     * @param myCallback
+     * @param listKey
+     */
     public void getListKeys(FirebaseCallbackListKeys myCallback, String listKey) {
 
 
@@ -58,12 +69,22 @@ public class DataHandler {
         });
     }
 
+    /**
+     * Writes a list to the database
+     * @param list
+     * @param listKey
+     */
     public void writeData(ShoppingList list, String listKey){
 
         DatabaseReference mDatabaseReference = this.mFirebaseDatabase.getReference(listKey);
         mDatabaseReference.setValue(list);
     }
 
+    /**
+     * Writes the listKeys to the database
+     * @param accessKeys
+     * @param listKey
+     */
     public void writeListKeys(DatabaseListAccess accessKeys, String listKey){
 
         DatabaseReference mDatabaseReference = this.mFirebaseDatabase.getReference(listKey);

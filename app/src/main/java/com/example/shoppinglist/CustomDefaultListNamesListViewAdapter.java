@@ -30,7 +30,16 @@ public class CustomDefaultListNamesListViewAdapter extends BaseAdapter implement
     private String listKey;
     private ArrayList<Boolean> defaultListChecked;
 
-
+    /**
+     * Constructor for the CustomDefaultListNamesListViewAdapter.
+     *
+     * @param list
+     * @param context
+     * @param data
+     * @param databaseListAccess
+     * @param listKey
+     * @param defaultListChecked
+     */
     public CustomDefaultListNamesListViewAdapter(
             ArrayList<CustomMap> list, Context context, DataHandler data,
             DatabaseListAccess databaseListAccess, String listKey,
@@ -55,11 +64,19 @@ public class CustomDefaultListNamesListViewAdapter extends BaseAdapter implement
 
     @Override
     public long getItemId(int pos) {
-        //return list.get(pos).getId();
         return 0;
         //We aren't using Item ID's
     }
 
+    /**
+     * This method generates the view to display the items of the list.  It includes the checkbox
+     * to select the item and the name of the list.
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -81,7 +98,7 @@ public class CustomDefaultListNamesListViewAdapter extends BaseAdapter implement
         return view;
     }
 
-
+    //Define the listener for the checkbox in order to assign the list position
     CheckBox.OnCheckedChangeListener mListener = new CheckBox.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
