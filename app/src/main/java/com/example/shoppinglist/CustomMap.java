@@ -20,6 +20,11 @@ public class CustomMap implements Serializable {
 
     public CustomMap() { }
 
+    /**
+     * Constructor for the CustomMap Class
+     * @param key
+     * @param value
+     */
     public CustomMap(String key, String value) {
         this.key = key;
         this.value = value;

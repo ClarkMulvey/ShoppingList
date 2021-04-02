@@ -30,6 +30,13 @@ public class CustomUpcomingListViewAdapter extends BaseAdapter implements ListAd
     private ShoppingList shoppingListDefault;
     String listKey;
 
+    /**
+     * Constructor for CustomUpcomingListViewAdapter class.
+     * @param list
+     * @param context
+     * @param data
+     * @param listKey
+     */
     public CustomUpcomingListViewAdapter(ShoppingList list, Context context, DataHandler data, String listKey) {
         this.list = list.getItems();
         this.shoppingListDefault = list;
@@ -55,6 +62,15 @@ public class CustomUpcomingListViewAdapter extends BaseAdapter implements ListAd
         //We aren't using Item ID's
     }
 
+    /**
+     * This method generates the view to display the items of the Shopping list.  It includes the
+     * list name, item quantity, and a button to delete the item.
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -82,6 +98,7 @@ public class CustomUpcomingListViewAdapter extends BaseAdapter implements ListAd
         //Handle buttons and add onClickListeners
         FloatingActionButton deleteBtn = (FloatingActionButton) view.findViewById(R.id.delete_btn);
 
+        //Define the onclick listener which will delete the item from the list
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
