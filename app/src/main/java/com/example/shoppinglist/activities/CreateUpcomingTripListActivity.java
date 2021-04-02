@@ -54,7 +54,10 @@ public class CreateUpcomingTripListActivity extends AppCompatActivity {
     private ShoppingList upcomingList;
     private String originActivity;
 
-
+    /**
+     * OnCreate method - assigns all member vars, gets data, and populates the Views
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
